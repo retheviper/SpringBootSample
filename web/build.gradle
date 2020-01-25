@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+    id 'war'
+    id 'org.springframework.boot' version '2.2.2.RELEASE'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+sourceCompatibility = 11
+targetCompatibility = 11
+
+dependencies {
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation project(':springbootsample-domain')
+	implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.5'
+}
