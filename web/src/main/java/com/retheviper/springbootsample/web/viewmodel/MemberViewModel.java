@@ -8,14 +8,9 @@ import lombok.Data;
 @Data
 public class MemberViewModel implements Serializable {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = -5447103109389543155L;
+    private String memberId;
 
-	private String memberId;
+    private String realIdentity;
 
-	private String realIdentity;
-
-	private LocalDate joinedDate;
+    private LocalDate joinedDate;
 }

@@ -8,9 +8,9 @@ import com.retheviper.springbootsample.domain.entity.Member;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
-	Boolean existsByMemberId(String memberId);
+    Boolean existsByMemberId(String memberId);
 
-	Optional<Member> findByMemberId(String memberId);
+    Optional<Member> findByMemberId(String memberId);
 
-	void deleteByMemberId(String memberID);
+    void deleteByMemberId(String memberID);
 }

@@ -14,13 +14,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MemberDto implements Serializable {
 
-	private Long id;
+    private Long id;
 
-	private String memberId;
+    private String memberId;
 
-	private String realIdentity;
+    private String realIdentity;
 
-	private String password;
+    private String password;
 
-	private LocalDateTime joinedDate;
+    private LocalDateTime joinedDate;
 }

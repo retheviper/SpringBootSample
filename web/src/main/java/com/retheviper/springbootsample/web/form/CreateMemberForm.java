@@ -10,15 +10,15 @@ import lombok.Data;
 @Data
 public class CreateMemberForm implements Serializable {
 
-	@NotEmpty
-	@Size(min = 4, max = 16)
-	private String memberId;
+    @NotEmpty
+    @Size(min = 4, max = 16)
+    private String memberId;
 
-	@NotEmpty
-	@Size(min = 4, max = 16)
-	private String realIdentity;
+    @NotEmpty
+    @Size(min = 4, max = 16)
+    private String realIdentity;
 
-	@NotEmpty
-	@Size(min = 4, max = 16)
-	private String password;
+    @NotEmpty
+    @Size(min = 4, max = 16)
+    private String password;
 }

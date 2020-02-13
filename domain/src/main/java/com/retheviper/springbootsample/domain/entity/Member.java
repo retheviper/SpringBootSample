@@ -15,20 +15,20 @@ import lombok.Data;
 @Data
 public class Member {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private long id;
 
-	@Column(unique = true, updatable = false, nullable = false)
-	@Size(max = 16)
-	private String memberId;
+    @Column(unique = true, updatable = false, nullable = false)
+    @Size(max = 16)
+    private String memberId;
 
-	@Column(nullable = false)
-	private String realIdentity;
+    @Column(nullable = false)
+    private String realIdentity;
 
-	@Column(nullable = false)
-	private String password;
+    @Column(nullable = false)
+    private String password;
 
-	@Column(updatable = false, nullable = false)
-	private LocalDateTime joinedDate;
+    @Column(updatable = false, nullable = false)
+    private LocalDateTime joinedDate;
 }

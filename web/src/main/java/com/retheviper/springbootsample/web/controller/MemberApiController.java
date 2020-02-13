@@ -28,48 +28,48 @@ import com.retheviper.springbootsample.web.viewmodel.MemberViewModel;
 @RequestMapping("api/v1/web/member")
 public class MemberApiController {
 
-	private final ModelMapper mapper;
+    private final ModelMapper mapper;
 
-	private final MemberService service;
+    private final MemberService service;
 
-	@Autowired
-	public MemberApiController(final ModelMapper mapper, final MemberService service) {
-		this.mapper = mapper;
-		this.service = service;
-	}
+    @Autowired
+    public MemberApiController(final ModelMapper mapper, final MemberService service) {
+        this.mapper = mapper;
+        this.service = service;
+    }
 
-	@GetMapping
-	@ResponseStatus(HttpStatus.OK)
-	public List<MemberViewModel> listMember() {
-		return this.service.listMember().stream().map(dto -> this.mapper.map(dto, MemberViewModel.class))
-				.collect(Collectors.toList());
-	}
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<MemberViewModel> listMember() {
+        return this.service.listMember().stream().map(dto -> this.mapper.map(dto, MemberViewModel.class))
+                .collect(Collectors.toList());
+    }
 
-	@GetMapping("/{memberId}")
-	@ResponseStatus(HttpStatus.OK)
-	public MemberViewModel getMember(@PathVariable final String memberId) {
-		return this.mapper.map(this.service.getMember(memberId), MemberViewModel.class);
-	}
+    @GetMapping("/{memberId}")
+    @ResponseStatus(HttpStatus.OK)
+    public MemberViewModel getMember(@PathVariable final String memberId) {
+        return this.mapper.map(this.service.getMember(memberId), MemberViewModel.class);
+    }
 
-	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	public MemberViewModel createMember(@Validated final CreateMemberForm form) {
-		return this.mapper.map(this.service.createMember(this.mapper.map(form, MemberDto.class)),
-				MemberViewModel.class);
-	}
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public MemberViewModel createMember(@Validated final CreateMemberForm form) {
+        return this.mapper.map(this.service.createMember(this.mapper.map(form, MemberDto.class)),
+                MemberViewModel.class);
+    }
 
-	@PutMapping("/{memberId}")
-	@ResponseStatus(HttpStatus.OK)
-	public MemberViewModel updateMember(@Validated final UpdateMemberForm form, @PathVariable final String memberId) {
-		final MemberDto dto = this.mapper.map(form, MemberDto.class);
-		dto.setMemberId(memberId);
-		return this.mapper.map(this.service.updateMember(dto), MemberViewModel.class);
-	}
+    @PutMapping("/{memberId}")
+    @ResponseStatus(HttpStatus.OK)
+    public MemberViewModel updateMember(@Validated final UpdateMemberForm form, @PathVariable final String memberId) {
+        final MemberDto dto = this.mapper.map(form, MemberDto.class);
+        dto.setMemberId(memberId);
+        return this.mapper.map(this.service.updateMember(dto), MemberViewModel.class);
+    }
 
-	@DeleteMapping("/{memberId}")
-	@ResponseStatus(HttpStatus.OK)
-	public void deleteMember(@PathVariable final String memberId, final String password) {
-		final MemberDto dto = MemberDto.builder().memberId(memberId).password(password).build();
-		this.service.deleteMember(dto);
-	}
+    @DeleteMapping("/{memberId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteMember(@PathVariable final String memberId, final String password) {
+        final MemberDto dto = MemberDto.builder().memberId(memberId).password(password).build();
+        this.service.deleteMember(dto);
+    }
 }

@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class UpdateMemberForm implements Serializable {
 
-	@NotEmpty
-	@Size(min = 4, max = 16)
-	private String password;
+    @NotEmpty
+    @Size(min = 4, max = 16)
+    private String password;
 }
