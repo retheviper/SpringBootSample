@@ -1,4 +1,4 @@
-package com.retheviper.springbootsample.application.exception;
+package com.retheviper.springbootsample.common.exception;
 
 public class MemberException extends RuntimeException {
 

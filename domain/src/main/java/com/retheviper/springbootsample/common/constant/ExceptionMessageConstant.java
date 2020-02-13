@@ -1,4 +1,4 @@
-package com.retheviper.springbootsample.application.constant;
+package com.retheviper.springbootsample.common.constant;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

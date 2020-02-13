@@ -11,9 +11,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.retheviper.springbootsample.application.constant.ExceptionMessageConstant;
 import com.retheviper.springbootsample.application.dto.MemberDto;
-import com.retheviper.springbootsample.application.exception.MemberException;
+import com.retheviper.springbootsample.common.constant.ExceptionMessageConstant;
+import com.retheviper.springbootsample.common.exception.MemberException;
 import com.retheviper.springbootsample.domain.entity.Member;
 import com.retheviper.springbootsample.domain.repository.MemberRepository;
 
