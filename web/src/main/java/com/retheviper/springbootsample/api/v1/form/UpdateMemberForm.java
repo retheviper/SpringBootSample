@@ -1,4 +1,4 @@
-package com.retheviper.springbootsample.web.form;
+package com.retheviper.springbootsample.api.v1.form;
 
 import java.io.Serializable;
 

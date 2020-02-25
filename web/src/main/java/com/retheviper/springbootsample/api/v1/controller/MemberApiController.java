@@ -1,4 +1,4 @@
-package com.retheviper.springbootsample.web.controller;
+package com.retheviper.springbootsample.api.v1.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.retheviper.springbootsample.api.v1.form.CreateMemberForm;
+import com.retheviper.springbootsample.api.v1.form.UpdateMemberForm;
+import com.retheviper.springbootsample.api.v1.viewmodel.MemberViewModel;
 import com.retheviper.springbootsample.application.dto.MemberDto;
 import com.retheviper.springbootsample.application.service.MemberService;
-import com.retheviper.springbootsample.web.form.CreateMemberForm;
-import com.retheviper.springbootsample.web.form.UpdateMemberForm;
-import com.retheviper.springbootsample.web.viewmodel.MemberViewModel;
 
 @CrossOrigin
 @RestController

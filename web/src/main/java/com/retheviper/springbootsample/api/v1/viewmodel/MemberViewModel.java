@@ -1,4 +1,4 @@
-package com.retheviper.springbootsample.web.viewmodel;
+package com.retheviper.springbootsample.api.v1.viewmodel;
 
 import java.io.Serializable;
 import java.time.LocalDate;
