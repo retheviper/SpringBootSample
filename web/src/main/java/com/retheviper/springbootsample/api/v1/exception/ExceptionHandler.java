@@ -16,7 +16,7 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
 
     @org.springframework.web.bind.annotation.ExceptionHandler(MemberException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ExceptionViewModel handleAccessDeniedException(final MemberException exception) {
+    public ExceptionViewModel handleMemberException(final MemberException exception) {
         final String message = exception.getMessage();
         final MemberExceptionMessage code = MemberExceptionMessage.getCode(message);
         return new ExceptionViewModel(LocalDateTime.now(), "Member", code.toString(), message);
