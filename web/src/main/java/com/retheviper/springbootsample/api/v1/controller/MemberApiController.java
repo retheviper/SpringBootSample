@@ -6,13 +6,13 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -53,14 +53,15 @@ public class MemberApiController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public MemberViewModel createMember(@Validated final CreateMemberForm form) {
+    public MemberViewModel createMember(@RequestBody final CreateMemberForm form) {
         return this.mapper.map(this.service.createMember(this.mapper.map(form, MemberDto.class)),
                 MemberViewModel.class);
     }
 
     @PutMapping("/{memberId}")
     @ResponseStatus(HttpStatus.OK)
-    public MemberViewModel updateMember(@Validated final UpdateMemberForm form, @PathVariable final String memberId) {
+    public MemberViewModel updateMember(@RequestBody final UpdateMemberForm form,
+            @PathVariable final String memberId) {
         final MemberDto dto = this.mapper.map(form, MemberDto.class);
         dto.setMemberId(memberId);
         return this.mapper.map(this.service.updateMember(dto), MemberViewModel.class);

@@ -1,6 +1,6 @@
 package com.retheviper.springbootsample.domain.entity;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,5 +30,5 @@ public class Member {
     private String password;
 
     @Column(updatable = false, nullable = false)
-    private LocalDateTime joinedDate;
+    private LocalDate joinedDate;
 }

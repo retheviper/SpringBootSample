@@ -1,7 +1,7 @@
 package com.retheviper.springbootsample.application.dto;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,5 +22,5 @@ public class MemberDto implements Serializable {
 
     private String password;
 
-    private LocalDateTime joinedDate;
+    private LocalDate joinedDate;
 }

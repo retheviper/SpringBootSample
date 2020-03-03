@@ -1,6 +1,6 @@
 package com.retheviper.springbootsample.application.service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.retheviper.springbootsample.application.dto.MemberDto;
-import com.retheviper.springbootsample.common.constant.ExceptionMessageConstant;
+import com.retheviper.springbootsample.common.constant.MemberExceptionMessage;
 import com.retheviper.springbootsample.common.exception.MemberException;
 import com.retheviper.springbootsample.domain.entity.Member;
 import com.retheviper.springbootsample.domain.repository.MemberRepository;
@@ -48,16 +48,16 @@ public class MemberServiceImpl implements MemberService {
     public MemberDto getMember(final String memberId) {
         final Optional<Member> result = this.repository.findByMemberId(memberId);
         return createDto(
-                result.orElseThrow(() -> new NullPointerException(ExceptionMessageConstant.COMMON_E000.getMessage())));
+                result.orElseThrow(() -> new MemberException(MemberExceptionMessage.E000.getMessage())));
     }
 
     @Override
     @Transactional
     public MemberDto createMember(final MemberDto dto) {
         if (this.repository.existsByMemberId(dto.getMemberId())) {
-            throw new MemberException(ExceptionMessageConstant.MEMBER_E000.getMessage());
+            throw new MemberException(MemberExceptionMessage.E004.getMessage());
         }
-        dto.setJoinedDate(LocalDateTime.now());
+        dto.setJoinedDate(LocalDate.now());
         return saveMemberWithEncrpytion(dto);
     }
 
@@ -65,7 +65,7 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     public MemberDto updateMember(final MemberDto dto) {
         if (checkPasswordMatches(dto)) {
-            throw new MemberException(ExceptionMessageConstant.COMMON_E002.getMessage());
+            throw new MemberException(MemberExceptionMessage.E002.getMessage());
         }
         return saveMemberWithEncrpytion(dto);
     }
@@ -74,7 +74,7 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     public void deleteMember(final MemberDto dto) {
         if (!checkPasswordMatches(dto)) {
-            throw new MemberException(ExceptionMessageConstant.COMMON_E001.getMessage());
+            throw new MemberException(MemberExceptionMessage.E001.getMessage());
         }
         this.repository.deleteByMemberId(dto.getMemberId());
     }
@@ -87,9 +87,9 @@ public class MemberServiceImpl implements MemberService {
 
     private boolean checkPasswordMatches(final MemberDto dto) {
         final String inputed = Optional.ofNullable(dto).map(MemberDto::getPassword)
-                .orElseThrow(() -> new MemberException(ExceptionMessageConstant.COMMON_E003.getMessage()));
+                .orElseThrow(() -> new MemberException(MemberExceptionMessage.E003.getMessage()));
         final String existing = this.repository.findByMemberId(dto.getMemberId()).map(Member::getPassword)
-                .orElseThrow(() -> new MemberException(ExceptionMessageConstant.MEMBER_E001.getMessage()));
+                .orElseThrow(() -> new MemberException(MemberExceptionMessage.E005.getMessage()));
         return this.encoder.matches(inputed, existing);
     }
 
