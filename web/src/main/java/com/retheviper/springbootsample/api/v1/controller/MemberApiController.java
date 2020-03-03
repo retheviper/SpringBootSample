@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -53,14 +54,14 @@ public class MemberApiController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public MemberViewModel createMember(@RequestBody final CreateMemberForm form) {
+    public MemberViewModel createMember(@Validated @RequestBody final CreateMemberForm form) {
         return this.mapper.map(this.service.createMember(this.mapper.map(form, MemberDto.class)),
                 MemberViewModel.class);
     }
 
     @PutMapping("/{memberId}")
     @ResponseStatus(HttpStatus.OK)
-    public MemberViewModel updateMember(@RequestBody final UpdateMemberForm form,
+    public MemberViewModel updateMember(@Validated @RequestBody final UpdateMemberForm form,
             @PathVariable final String memberId) {
         final MemberDto dto = this.mapper.map(form, MemberDto.class);
         dto.setMemberId(memberId);

@@ -26,4 +26,13 @@ public enum MemberExceptionMessage {
     E005("ID does not exists");
 
     private final String message;
+
+    public static MemberExceptionMessage getCode(final String message) {
+        for (MemberExceptionMessage code : MemberExceptionMessage.values()) {
+            if (code.getMessage().equalsIgnoreCase(message)) {
+                return code;
+            }
+        }
+        return null;
+    }
 }
