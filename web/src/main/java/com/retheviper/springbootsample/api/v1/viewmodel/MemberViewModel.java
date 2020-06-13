@@ -1,16 +1,36 @@
 package com.retheviper.springbootsample.api.v1.viewmodel;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 import lombok.Data;
 
+/**
+ * Member view model class.
+ *
+ * @author retheviper
+ */
 @Data
 public class MemberViewModel implements Serializable {
 
-    private String memberId;
+    /**
+     * Member's ID(user ID)
+     */
+    private String uid;
 
-    private String realIdentity;
+    /**
+     * Member's name
+     */
+    private String name;
 
-    private LocalDate joinedDate;
+    /**
+     * Created date of member
+     */
+    private LocalDateTime createdDate;
+
+    /**
+     * Member's role
+     */
+    private List<String> roles;
 }

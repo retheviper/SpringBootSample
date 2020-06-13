@@ -2,23 +2,33 @@ package com.retheviper.springbootsample.api.v1.form;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
 
+/**
+ * Member create form class.
+ *
+ * @author retheviper
+ */
 @Data
 public class CreateMemberForm implements Serializable {
 
-    @NotEmpty
-    @Size(min = 4, max = 16)
-    private String memberId;
+    /**
+     * Member's ID(user ID)
+     */
+    @Size(min = 4, max = 16, message = "User name must be 4 to 16 characters")
+    private String uid;
 
-    @NotEmpty
-    @Size(min = 4, max = 16)
-    private String realIdentity;
+    /**
+     * Member's name
+     */
+    @Size(min = 4, max = 16, message = "Name must be 4 to 16 characters")
+    private String name;
 
-    @NotEmpty
-    @Size(min = 4, max = 16)
+    /**
+     * Member's password
+     */
+    @Size(min = 4, max = 16, message = "Password must be 4 to 16 characters")
     private String password;
 }

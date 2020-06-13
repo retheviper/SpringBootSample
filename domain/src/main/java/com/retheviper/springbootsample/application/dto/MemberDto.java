@@ -1,26 +1,82 @@
 package com.retheviper.springbootsample.application.dto;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Member DTO class.
+ *
+ * @author retheviper
+ */
 @Data
-@Builder
+@Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
 public class MemberDto implements Serializable {
 
-    private Long id;
+    /**
+     * Member's ID(user ID)
+     */
+    private String uid;
 
-    private String memberId;
+    /**
+     * Member's name
+     */
+    private String name;
 
-    private String realIdentity;
-
+    /**
+     * Member's password
+     */
     private String password;
 
-    private LocalDate joinedDate;
+    /**
+     * Member's new password
+     */
+    private String newPassword;
+
+    /**
+     * Created date of member
+     */
+    private LocalDateTime createdDate;
+
+    /**
+     * Last modified date of member
+     */
+    private LocalDateTime lastModifiedDate;
+
+    /**
+     * Is member's account not expired
+     */
+    private boolean accountNonExpired;
+
+    /**
+     * Is member's account not locked
+     */
+    private boolean accountNonLocked;
+
+    /**
+     * Is member's credential not expired
+     */
+    private boolean credentialsNonExpired;
+
+    /**
+     * Is member's account enabled
+     */
+    private boolean enabled;
+
+    /**
+     * Member's role
+     */
+    private List<String> roles;
+
+    /**
+     * Member's authorities
+     */
+    private List<String> authorities;
 }

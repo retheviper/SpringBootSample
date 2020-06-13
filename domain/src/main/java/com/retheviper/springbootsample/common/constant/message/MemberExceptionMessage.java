@@ -1,38 +1,48 @@
-package com.retheviper.springbootsample.common.constant;
+package com.retheviper.springbootsample.common.constant.message;
 
+import java.util.stream.Stream;
+
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum MemberExceptionMessage {
 
-    /** Data is null */
-    E000("Non data Exists"),
+    /**
+     * Data is null
+     */
+    E000("Non data Exists."),
 
-    /** Password is incorrect */
-    E001("Password Unmatch"),
+    /**
+     * Password is incorrect
+     */
+    E001("Password Unmatch."),
 
-    /** Password did not changed */
-    E002("Password did not changed"),
+    /**
+     * Member ID already exists
+     */
+    E002("ID already exists."),
 
-    /** Password not inputed */
-    E003("Password did not inputed"),
+    /**
+     * Member ID does not exists
+     */
+    E003("ID does not exists.");
 
-    /** Member ID already exists */
-    E004("ID already exists"),
+    /**
+     * Actual value
+     */
+    private final String value;
 
-    /** Member ID does not exists */
-    E005("ID does not exists");
-
-    private final String message;
-
+    /**
+     * Get Exception Code from Exception Message.
+     *
+     * @param message exception message
+     * @return found code
+     */
     public static MemberExceptionMessage getCode(final String message) {
-        for (MemberExceptionMessage code : MemberExceptionMessage.values()) {
-            if (code.getMessage().equalsIgnoreCase(message)) {
-                return code;
-            }
-        }
-        return null;
+        return Stream.of(MemberExceptionMessage.values()).filter(c -> c.getValue().equalsIgnoreCase(message))
+                .findAny().orElseThrow();
     }
 }

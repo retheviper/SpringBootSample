@@ -1,99 +1,162 @@
 package com.retheviper.springbootsample.application.service;
 
-import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.retheviper.springbootsample.application.dto.MemberDto;
-import com.retheviper.springbootsample.common.constant.MemberExceptionMessage;
+import com.retheviper.springbootsample.common.constant.MemberRole;
+import com.retheviper.springbootsample.common.constant.message.MemberExceptionMessage;
 import com.retheviper.springbootsample.common.exception.MemberException;
 import com.retheviper.springbootsample.domain.entity.Member;
 import com.retheviper.springbootsample.domain.repository.MemberRepository;
 
+import lombok.RequiredArgsConstructor;
+
+/**
+ * Member service class. (Implementation)
+ *
+ * @author retheviper
+ */
 @Service
+@RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
 
-    /** Converter */
+    /**
+     * Data model converter
+     */
     private final ModelMapper mapper;
 
-    /** Password Encryption */
+    /**
+     * Password encryptor
+     */
     private final PasswordEncoder encoder;
 
-    /** JPA Repository */
+    /**
+     * Member repository class
+     */
     private final MemberRepository repository;
 
-    @Autowired
-    public MemberServiceImpl(final ModelMapper mapper, final PasswordEncoder encoder,
-            final MemberRepository repository) {
-        this.mapper = mapper;
-        this.encoder = encoder;
-        this.repository = repository;
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @Transactional(readOnly = true)
     public List<MemberDto> listMember() {
-        return this.repository.findAll().stream().map(entity -> createDto(entity)).collect(Collectors.toList());
+        return StreamSupport.stream(this.repository.findAll().spliterator(), false)
+                .map(this::createDto)
+                .collect(Collectors.toUnmodifiableList());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @Transactional(readOnly = true)
-    public MemberDto getMember(final String memberId) {
-        final Optional<Member> result = this.repository.findByMemberId(memberId);
-        return createDto(
-                result.orElseThrow(() -> new MemberException(MemberExceptionMessage.E000.getMessage())));
+    public MemberDto getMember(final String uid) {
+        return createDto(getEntity(uid));
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public MemberDto getMember(final MemberDto dto) {
+        return createDto(getEntity(dto));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @Transactional
     public MemberDto createMember(final MemberDto dto) {
-        if (this.repository.existsByMemberId(dto.getMemberId())) {
-            throw new MemberException(MemberExceptionMessage.E004.getMessage());
+        if (this.repository.existsByUid(dto.getUid())) {
+            throw new MemberException(MemberExceptionMessage.E002.getValue());
         }
-        dto.setJoinedDate(LocalDate.now());
-        return saveMemberWithEncrpytion(dto);
+        final MemberDto created = dto.toBuilder()
+                .password(this.encoder.encode(dto.getPassword()))
+                .enabled(true)
+                .accountNonExpired(true)
+                .accountNonLocked(true)
+                .credentialsNonExpired(true)
+                .roles(Collections.singletonList(MemberRole.USER.getRole()))
+                .build();
+        return createDto(this.repository.save(this.mapper.map(created, Member.class)));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @Transactional
     public MemberDto updateMember(final MemberDto dto) {
-        if (checkPasswordMatches(dto)) {
-            throw new MemberException(MemberExceptionMessage.E002.getMessage());
-        }
-        return saveMemberWithEncrpytion(dto);
+        final Member entity = getEntity(dto);
+        entity.setPassword(dto.getNewPassword() != null
+                ? this.encoder.encode(dto.getNewPassword())
+                : this.encoder.encode(dto.getPassword()));
+        return createDto(this.repository.save(entity));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @Transactional
     public void deleteMember(final MemberDto dto) {
-        if (!checkPasswordMatches(dto)) {
-            throw new MemberException(MemberExceptionMessage.E001.getMessage());
-        }
-        this.repository.deleteByMemberId(dto.getMemberId());
+        this.repository.deleteByUid(getEntity(dto).getUid());
     }
 
-    private MemberDto saveMemberWithEncrpytion(final MemberDto dto) {
-        final String encodedPassword = this.encoder.encode(dto.getPassword());
-        dto.setPassword(encodedPassword);
-        return createDto(this.repository.save(this.mapper.map(dto, Member.class)));
-    }
-
-    private boolean checkPasswordMatches(final MemberDto dto) {
-        final String inputed = Optional.ofNullable(dto).map(MemberDto::getPassword)
-                .orElseThrow(() -> new MemberException(MemberExceptionMessage.E003.getMessage()));
-        final String existing = this.repository.findByMemberId(dto.getMemberId()).map(Member::getPassword)
-                .orElseThrow(() -> new MemberException(MemberExceptionMessage.E005.getMessage()));
-        return this.encoder.matches(inputed, existing);
-    }
-
+    /**
+     * Map entity to DTO.
+     *
+     * @param entity
+     * @return
+     */
     private MemberDto createDto(final Member entity) {
         return this.mapper.map(entity, MemberDto.class);
+    }
+
+    /**
+     * Get entity from repository.
+     *
+     * @param uid
+     * @return
+     */
+    private Member getEntity(final String uid) {
+        return this.repository.findByUid(uid)
+                .orElseThrow(() -> new MemberException(MemberExceptionMessage.E003.getValue()));
+    }
+
+    /**
+     * Get entity from repository and check member's password matches with inputed value.
+     *
+     * @param dto
+     * @return Entity that password checked
+     */
+    private Member getEntity(final MemberDto dto) {
+        final Member entity = getEntity(dto.getUid());
+        if (this.encoder.matches(dto.getPassword(), entity.getPassword())) {
+            return entity;
+        } else {
+            throw new MemberException(MemberExceptionMessage.E001.getValue());
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+        return getEntity(username);
     }
 }

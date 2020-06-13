@@ -2,15 +2,37 @@ package com.retheviper.springbootsample.domain.repository;
 
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
 import com.retheviper.springbootsample.domain.entity.Member;
 
-public interface MemberRepository extends JpaRepository<Member, Long> {
+/**
+ * Member repository.
+ *
+ * @author retheviper
+ */
+public interface MemberRepository extends CrudRepository<Member, Long> {
 
-    Boolean existsByMemberId(String memberId);
+    /**
+     * Check member exists.
+     *
+     * @param uid member's ID(user ID)
+     * @return result of check
+     */
+    boolean existsByUid(String uid);
 
-    Optional<Member> findByMemberId(String memberId);
+    /**
+     * Find member by ID.
+     *
+     * @param uid member's ID(user ID)
+     * @return result of query
+     */
+    Optional<Member> findByUid(String uid);
 
-    void deleteByMemberId(String memberID);
+    /**
+     * Delete member by ID.
+     *
+     * @param uid member's ID(user ID)
+     */
+    void deleteByUid(String uid);
 }
