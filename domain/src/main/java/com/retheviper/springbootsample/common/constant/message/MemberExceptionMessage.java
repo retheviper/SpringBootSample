@@ -13,12 +13,12 @@ public enum MemberExceptionMessage {
     /**
      * Data is null
      */
-    E000("Non data Exists."),
+    E000("None data Exists."),
 
     /**
      * Password is incorrect
      */
-    E001("Password Unmatch."),
+    E001("Password unmatches."),
 
     /**
      * Member ID already exists
@@ -28,7 +28,12 @@ public enum MemberExceptionMessage {
     /**
      * Member ID does not exists
      */
-    E003("ID does not exists.");
+    E003("ID does not exists."),
+
+    /**
+     * Member ID does not mathces
+     */
+    E004("User unmatches");
 
     /**
      * Actual value

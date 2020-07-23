@@ -1,36 +1,24 @@
 package com.retheviper.springbootsample.common.constant;
 
 import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 /**
- * Enum for member role.
+ * Class for member role constants.
  *
  * @author retheviper
  */
-@Getter
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public enum MemberRole {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class MemberRole {
 
     /**
      * Role: Admin
      */
-    ADMIN("ROLE_ADMIN", "ADMIN"),
+    public static final String ADMIN = "ADMIN";
 
     /**
      * Role: User
      */
-    USER("ROLE_USER", "USER");
-
-    /**
-     * Role value
-     */
-    private final String role;
-
-    /**
-     * Role name
-     */
-    private final String roleName;
+    public static final String USER = "USER";
 
 }

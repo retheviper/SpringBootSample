@@ -1,5 +1,6 @@
 plugins {
     id 'war'
+    id 'jacoco'
     id 'java-library'
     id 'org.springframework.boot' version '2.3.1.RELEASE'
 }
@@ -9,12 +10,31 @@ apply plugin: 'io.spring.dependency-management'
 sourceCompatibility = 11
 targetCompatibility = 11
 
+jacoco {
+    toolVersion = '0.8.5'
+}
+
+jacocoTestReport {
+    reports {
+        html.enabled true
+        xml.enabled false
+        csv.enabled false
+    }
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy 'jacocoTestReport'
+}
+
 dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
     implementation project(':springbootsample-domain')
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.modelmapper:modelmapper:2.3.5'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }

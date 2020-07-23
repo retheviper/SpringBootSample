@@ -1,5 +1,7 @@
 package com.retheviper.springbootsample.application.config;
 
+import java.util.regex.Pattern;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class CommonBeansConfig {
 
     /**
-     * A ModelMapper for map data for Forms, ViewModels, DTOs, Entitys classes.
+     * A ModelMapper for map data for form, view model, DTO, entity classes.
      */
     @Bean
     public ModelMapper mapper() {
@@ -31,5 +33,13 @@ public class CommonBeansConfig {
     @Bean
     public PasswordEncoder encoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+
+    /**
+     * Pattern for check string is numeric.
+     */
+    @Bean
+    public Pattern numericPatternMatcher() {
+        return Pattern.compile("-?\\d+(\\.\\d+)?");
     }
 }
