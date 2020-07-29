@@ -73,7 +73,7 @@ public class CategoryApiController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @Secured(MemberRole.ADMIN)
+    @Secured(MemberRole.ROLE_ADMIN)
     public CategoryViewModel createCategory(@PathVariable final long boardId,
             @Validated @RequestBody final CategoryForm form) {
         final CategoryDto dto = this.mapper.map(form, CategoryDto.class);
@@ -85,7 +85,7 @@ public class CategoryApiController {
 
     @PutMapping("/{categoryId}")
     @ResponseStatus(HttpStatus.OK)
-    @Secured(MemberRole.ADMIN)
+    @Secured(MemberRole.ROLE_ADMIN)
     public CategoryViewModel updateCategory(@PathVariable final long categoryId,
             @Validated @RequestBody final CategoryForm form) {
         final CategoryDto dto = this.mapper.map(form, CategoryDto.class);
@@ -95,7 +95,7 @@ public class CategoryApiController {
 
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/{categoryId}")
-    @Secured(MemberRole.ADMIN)
+    @Secured(MemberRole.ROLE_ADMIN)
     public void deleteCategory(@PathVariable final long categoryId) {
         this.service.deleteCategory(categoryId);
     }

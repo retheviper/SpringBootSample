@@ -14,11 +14,21 @@ public class MemberRole {
     /**
      * Role: Admin
      */
-    public static final String ADMIN = "ROLE_ADMIN";
+    public static final String ROLE_ADMIN = "ROLE_ADMIN";
+
+    /**
+     * Admin
+     */
+    public static final String ADMIN = "ADMIN";
 
     /**
      * Role: User
      */
-    public static final String USER = "ROLE_USER";
+    public static final String ROLE_USER = "ROLE_USER";
+
+    /**
+     * User
+     */
+    public static final String USER = "USER";
 
 }

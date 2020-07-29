@@ -2,8 +2,6 @@ package com.retheviper.springbootsample.api.v1.test.controller.member;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.List;
-
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -42,12 +40,13 @@ public class MemberApiControllerTest {
     @Order(3)
     @WithMockUser(username = TEST_USER_ID, roles = MemberRole.USER)
     void listMemberTest() {
-        final List<MemberViewModel> response = this.controller.listMember();
+        final MemberViewModel response = this.controller.listMember().stream()
+                .filter(v -> v.getUserId().equals(TEST_USER_ID)).findAny().orElseThrow(NullPointerException::new);
         assertAll(() -> {
             assertNotNull(response);
-            assertEquals(TEST_USER_ID, response.get(0).getUserId());
-            assertEquals(TEST_USER_NAME, response.get(0).getName());
-            assertEquals(MemberRole.USER, response.get(0).getRoles().get(0));
+            assertEquals(TEST_USER_ID, response.getUserId());
+            assertEquals(TEST_USER_NAME, response.getName());
+            assertEquals(MemberRole.USER, response.getRoles().get(0));
         });
     }
 
@@ -90,7 +89,7 @@ public class MemberApiControllerTest {
         form.setName(TEST_USER_NAME_2);
         form.setPassword(TEST_USER_PASSWORD);
         form.setNewPassword(TEST_USER_PASSWORD_2);
-        final MemberViewModel response = this.controller.updateMember(1, form);
+        final MemberViewModel response = this.controller.updateMember(MEMBER_ID, form);
         assertAll(() -> {
             assertEquals(TEST_USER_NAME_2, response.getName());
             assertEquals(MemberRole.USER, response.getRoles().get(0));
@@ -102,7 +101,7 @@ public class MemberApiControllerTest {
     @WithMockUser(username = TEST_USER_ID, roles = MemberRole.USER)
     void deleteMemberTest() {
         assertAll(() -> {
-            assertDoesNotThrow(() -> this.controller.deleteMember(1, TEST_USER_PASSWORD_2));
+            assertDoesNotThrow(() -> this.controller.deleteMember(MEMBER_ID, TEST_USER_PASSWORD_2));
             assertThrows(MemberException.class, () -> this.controller.getMember(String.valueOf(MEMBER_ID)));
         });
     }

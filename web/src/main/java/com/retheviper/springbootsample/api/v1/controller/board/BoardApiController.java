@@ -88,7 +88,7 @@ public class BoardApiController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @Secured(MemberRole.ADMIN)
+    @Secured(MemberRole.ROLE_ADMIN)
     public BoardViewModel createBoard(@RequestBody final BoardForm form) {
         return createViewModel(this.service.createBoard(this.mapper.map(form, BoardDto.class)));
     }
@@ -102,7 +102,7 @@ public class BoardApiController {
      */
     @PutMapping("/{boardId}")
     @ResponseStatus(HttpStatus.OK)
-    @Secured(MemberRole.ADMIN)
+    @Secured(MemberRole.ROLE_ADMIN)
     public BoardViewModel updateBoard(@PathVariable final long boardId, @RequestBody final BoardForm form) {
         final BoardDto dto = this.mapper.map(form, BoardDto.class);
         dto.setId(boardId);
@@ -116,7 +116,7 @@ public class BoardApiController {
      */
     @DeleteMapping("/{boardId}")
     @ResponseStatus(HttpStatus.OK)
-    @Secured(MemberRole.ADMIN)
+    @Secured(MemberRole.ROLE_ADMIN)
     public void deleteBoard(@PathVariable final long boardId) {
         this.service.deleteBoard(boardId);
     }

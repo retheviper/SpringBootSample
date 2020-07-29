@@ -94,9 +94,9 @@ public class MemberServiceImpl implements MemberService {
             throw new MemberException(MemberExceptionMessage.E004.getValue());
         }
         entity.setName(dto.getName());
-        entity.setPassword(dto.getNewPassword() != null
-                ? this.encoder.encode(dto.getNewPassword())
-                : this.encoder.encode(dto.getPassword()));
+        if (dto.getNewPassword() != null) {
+            entity.setPassword(this.encoder.encode(dto.getNewPassword()));
+        }
         return save(entity);
     }
 
