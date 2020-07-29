@@ -11,6 +11,7 @@ spring:
   jpa:
     database: h2
     show-sql: true
-    generate-ddl: true
+#    generate-ddl: true
     hibernate:
-      ddl-auto: create-drop
+#      ddl-auto: create-drop
+      ddl-auto: none

@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import com.retheviper.springbootsample.api.v1.form.board.BoardForm;
 import com.retheviper.springbootsample.api.v1.viewmodel.board.BoardViewModel;
 import com.retheviper.springbootsample.application.dto.board.BoardDto;
 import com.retheviper.springbootsample.application.service.board.BoardService;
+import com.retheviper.springbootsample.common.constant.MemberRole;
 
 import lombok.RequiredArgsConstructor;
 
@@ -86,6 +88,7 @@ public class BoardApiController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @Secured(MemberRole.ADMIN)
     public BoardViewModel createBoard(@RequestBody final BoardForm form) {
         return createViewModel(this.service.createBoard(this.mapper.map(form, BoardDto.class)));
     }
@@ -99,6 +102,7 @@ public class BoardApiController {
      */
     @PutMapping("/{boardId}")
     @ResponseStatus(HttpStatus.OK)
+    @Secured(MemberRole.ADMIN)
     public BoardViewModel updateBoard(@PathVariable final long boardId, @RequestBody final BoardForm form) {
         final BoardDto dto = this.mapper.map(form, BoardDto.class);
         dto.setId(boardId);
@@ -112,6 +116,7 @@ public class BoardApiController {
      */
     @DeleteMapping("/{boardId}")
     @ResponseStatus(HttpStatus.OK)
+    @Secured(MemberRole.ADMIN)
     public void deleteBoard(@PathVariable final long boardId) {
         this.service.deleteBoard(boardId);
     }
