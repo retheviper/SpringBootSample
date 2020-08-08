@@ -1,7 +1,6 @@
 package com.retheviper.springbootsample.api.v1.controller.board;
 
 import java.util.List;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -34,13 +33,8 @@ import lombok.RequiredArgsConstructor;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/web/board/{boardId}/category")
+@RequestMapping("api/v1/web/boards/{boardId}/categories")
 public class CategoryApiController {
-
-    /**
-     * Pattern for check string is numeric
-     */
-    private final Pattern pattern;
 
     /**
      * Data model converter
@@ -52,6 +46,11 @@ public class CategoryApiController {
      */
     private final CategoryService service;
 
+    /**
+     * Get list of categories.
+     *
+     * @return list of categories
+     */
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<CategoryViewModel> listCategory(@PathVariable final long boardId) {
@@ -59,18 +58,26 @@ public class CategoryApiController {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Get single category.
+     *
+     * @param categoryId category ID
+     * @return requested single category
+     */
     @GetMapping("/{categoryId}")
     @ResponseStatus(HttpStatus.OK)
-    public CategoryViewModel getCategory(@PathVariable final String categoryId) {
+    public CategoryViewModel getCategory(@PathVariable final Long categoryId) {
         final CategoryDto dto = new CategoryDto();
-        if (pattern.matcher(categoryId).matches()) {
-            dto.setId(Long.parseLong(categoryId));
-        } else {
-            dto.setName(categoryId);
-        }
+        dto.setId(categoryId);
         return createViewModel(this.service.getCategory(dto));
     }
 
+    /**
+     * Create single category.
+     *
+     * @param form request form
+     * @return created single category
+     */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Secured(MemberRole.ROLE_ADMIN)
@@ -83,16 +90,31 @@ public class CategoryApiController {
         return createViewModel(this.service.createCategory(dto));
     }
 
+    /**
+     * Update single category.
+     *
+     * @param categoryId category ID
+     * @param form request form
+     * @return updated single category
+     */
     @PutMapping("/{categoryId}")
     @ResponseStatus(HttpStatus.OK)
     @Secured(MemberRole.ROLE_ADMIN)
-    public CategoryViewModel updateCategory(@PathVariable final long categoryId,
+    public CategoryViewModel updateCategory(@PathVariable final long boardId, @PathVariable final long categoryId,
             @Validated @RequestBody final CategoryForm form) {
         final CategoryDto dto = this.mapper.map(form, CategoryDto.class);
         dto.setId(categoryId);
+        final BoardDto board = new BoardDto();
+        board.setId(boardId);
+        dto.setBoard(board);
         return createViewModel(this.service.updateCategory(dto));
     }
 
+    /**
+     * Delete existing single category.
+     *
+     * @param commentId category ID
+     */
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/{categoryId}")
     @Secured(MemberRole.ROLE_ADMIN)
@@ -103,8 +125,8 @@ public class CategoryApiController {
     /**
      * Create view model.
      *
-     * @param dto Target DTO
-     * @return Generated view model
+     * @param dto target DTO
+     * @return generated view model
      */
     private CategoryViewModel createViewModel(final CategoryDto dto) {
         return this.mapper.map(dto, CategoryViewModel.class);

@@ -2,6 +2,8 @@ package com.retheviper.springbootsample.api.v1.test.controller.member;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -40,13 +42,13 @@ public class MemberApiControllerTest {
     @Order(3)
     @WithMockUser(username = TEST_USER_ID, roles = MemberRole.USER)
     void listMemberTest() {
-        final MemberViewModel response = this.controller.listMember().stream()
-                .filter(v -> v.getUserId().equals(TEST_USER_ID)).findAny().orElseThrow(NullPointerException::new);
+        final Optional<MemberViewModel> response = this.controller.listMember().stream()
+                .filter(v -> v.getUserId().equals(TEST_USER_ID)).findAny();
         assertAll(() -> {
-            assertNotNull(response);
-            assertEquals(TEST_USER_ID, response.getUserId());
-            assertEquals(TEST_USER_NAME, response.getName());
-            assertEquals(MemberRole.USER, response.getRoles().get(0));
+            final MemberViewModel view = assertDoesNotThrow(() -> response.get());
+            assertEquals(TEST_USER_ID, view.getUserId());
+            assertEquals(TEST_USER_NAME, view.getName());
+            assertTrue(view.getRoles().contains(MemberRole.USER));
         });
     }
 
@@ -54,7 +56,7 @@ public class MemberApiControllerTest {
     @Order(2)
     @WithMockUser(username = TEST_USER_ID, roles = MemberRole.USER)
     void getMemberTest() {
-        final MemberViewModel response = this.controller.getMember(TEST_USER_ID);
+        final MemberViewModel response = this.controller.getMember(MEMBER_ID);
         assertAll(() -> {
             assertNotNull(response);
             assertEquals(TEST_USER_ID, response.getUserId());
@@ -73,6 +75,7 @@ public class MemberApiControllerTest {
         form.setPassword(TEST_USER_PASSWORD);
         final MemberViewModel response = this.controller.createMember(form);
         assertAll(() -> {
+            assertNotNull(response);
             assertEquals(TEST_USER_ID, response.getUserId());
             assertEquals(TEST_USER_NAME, response.getName());
             assertEquals(MemberRole.USER, response.getRoles().get(0));
@@ -91,6 +94,7 @@ public class MemberApiControllerTest {
         form.setNewPassword(TEST_USER_PASSWORD_2);
         final MemberViewModel response = this.controller.updateMember(MEMBER_ID, form);
         assertAll(() -> {
+            assertNotNull(response);
             assertEquals(TEST_USER_NAME_2, response.getName());
             assertEquals(MemberRole.USER, response.getRoles().get(0));
         });
@@ -102,7 +106,7 @@ public class MemberApiControllerTest {
     void deleteMemberTest() {
         assertAll(() -> {
             assertDoesNotThrow(() -> this.controller.deleteMember(MEMBER_ID, TEST_USER_PASSWORD_2));
-            assertThrows(MemberException.class, () -> this.controller.getMember(String.valueOf(MEMBER_ID)));
+            assertThrows(MemberException.class, () -> this.controller.getMember(MEMBER_ID));
         });
     }
 }

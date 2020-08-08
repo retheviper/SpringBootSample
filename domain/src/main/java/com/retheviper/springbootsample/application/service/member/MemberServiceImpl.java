@@ -14,7 +14,6 @@ import com.retheviper.springbootsample.application.dto.member.MemberDto;
 import com.retheviper.springbootsample.common.constant.MemberRole;
 import com.retheviper.springbootsample.common.constant.message.MemberExceptionMessage;
 import com.retheviper.springbootsample.common.exception.MemberException;
-import com.retheviper.springbootsample.common.util.UserContext;
 import com.retheviper.springbootsample.domain.entity.member.Member;
 import com.retheviper.springbootsample.domain.repository.member.MemberRepository;
 
@@ -61,7 +60,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @Transactional(readOnly = true)
     public MemberDto getMember(final MemberDto dto) {
-        return createDto(dto.getUserId() != null ? getEntity(dto.getUserId()) : getEntity(dto.getId()));
+        return createDto(getEntity(dto.getId()));
     }
 
     /**
@@ -90,9 +89,6 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     public MemberDto updateMember(final MemberDto dto) {
         final Member entity = getEntity(dto.getId(), dto.getPassword());
-        if (!UserContext.loginedUserMatches(entity.getUserId()) || !UserContext.loginedUserMatches(dto.getUserId())) {
-            throw new MemberException(MemberExceptionMessage.E004.getValue());
-        }
         entity.setName(dto.getName());
         if (dto.getNewPassword() != null) {
             entity.setPassword(this.encoder.encode(dto.getNewPassword()));
@@ -107,9 +103,6 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     public void deleteMember(final MemberDto dto) {
         final Member existing = getEntity(dto.getId(), dto.getPassword());
-        if (!UserContext.loginedUserMatches(existing.getUserId())) {
-            throw new MemberException(MemberExceptionMessage.E004.getValue());
-        }
         this.repository.deleteById(existing.getId());
     }
 
@@ -141,17 +134,6 @@ public class MemberServiceImpl implements MemberService {
      */
     private Member getEntity(final long id) {
         return this.repository.findById(id)
-                .orElseThrow(() -> new MemberException(MemberExceptionMessage.E003.getValue()));
-    }
-
-    /**
-     * Get entity from repository.
-     *
-     * @param userIsd Member's user ID
-     * @return Member entity
-     */
-    private Member getEntity(final String userId) {
-        return this.repository.findByUserId(userId)
                 .orElseThrow(() -> new MemberException(MemberExceptionMessage.E003.getValue()));
     }
 

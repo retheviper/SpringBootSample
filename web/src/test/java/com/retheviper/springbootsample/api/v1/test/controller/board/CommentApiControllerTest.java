@@ -2,7 +2,6 @@ package com.retheviper.springbootsample.api.v1.test.controller.board;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -57,10 +56,9 @@ public class CommentApiControllerTest {
     @Order(4)
     @WithMockUser(username = TEST_USER_ID, roles = MemberRole.USER)
     void listCommentTest() {
-        final List<CommentViewModel> response = this.controller.listComment(ARTICLE_ID);
-        final Optional<CommentViewModel> responseBody = response.stream().findAny();
+        final Optional<CommentViewModel> response = this.controller.listComment(ARTICLE_ID).stream().findAny();
         assertAll(() -> {
-            final CommentViewModel view = assertDoesNotThrow(() -> responseBody.get());
+            final CommentViewModel view = assertDoesNotThrow(() -> response.get());
             assertEquals(TEST_CONTENT, view.getContent());
             assertEquals(TEST_USER_ID, view.getCreatedBy());
         });
@@ -101,6 +99,7 @@ public class CommentApiControllerTest {
         form.setContent(TEST_CONTENT_2);
         final CommentViewModel response = this.controller.updateComment(ARTICLE_ID, COMMENT_ID, form);
         assertAll(() -> {
+            assertNotNull(response);
             assertEquals(TEST_CONTENT_2, response.getContent());
             assertEquals(TEST_USER_ID, response.getCreatedBy());
         });

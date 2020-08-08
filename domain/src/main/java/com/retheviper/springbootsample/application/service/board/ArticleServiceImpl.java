@@ -8,8 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.retheviper.springbootsample.application.dto.board.ArticleDto;
 import com.retheviper.springbootsample.application.dto.board.CategoryDto;
+import com.retheviper.springbootsample.common.constant.message.BoardExceptionMessage;
 import com.retheviper.springbootsample.common.exception.BoardException;
-import com.retheviper.springbootsample.common.util.UserContext;
 import com.retheviper.springbootsample.domain.entity.board.Article;
 import com.retheviper.springbootsample.domain.repository.board.ArticleRepository;
 
@@ -77,7 +77,7 @@ public class ArticleServiceImpl implements ArticleService {
                     this.categoryService.getCategory(dto).getId(), boardId)
                     .map(this::createDto);
         default:
-            throw new BoardException("no such type");
+            throw new UnsupportedOperationException();
         }
     }
 
@@ -108,9 +108,6 @@ public class ArticleServiceImpl implements ArticleService {
     public ArticleDto updateArticle(final ArticleDto dto) {
         checkBoardAndCategory(dto);
         final Article entity = getEntity(dto.getId());
-        if (!UserContext.loginedUserMatches(entity.getCreatedBy())) {
-            throw new BoardException("author not equals");
-        }
         dto.setBoard(this.boardService.getBoard(dto.getBoard()));
         dto.setCategory(this.categoryService.getCategory(dto.getCategory()));
         this.mapper.map(dto, entity);
@@ -123,9 +120,6 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional
     public void deleteArticle(final long id) {
-        if (!UserContext.loginedUserMatches(getEntity(id).getCreatedBy())) {
-            throw new BoardException("author not equals");
-        }
         this.repository.deleteById(id);
     }
 
@@ -134,7 +128,7 @@ public class ArticleServiceImpl implements ArticleService {
      */
     public void checkExists(final long id) {
         if (!this.repository.existsById(id)) {
-            throw new BoardException("Article not exists");
+            throw new BoardException(BoardExceptionMessage.E005.getValue());
         }
     }
 
@@ -170,6 +164,7 @@ public class ArticleServiceImpl implements ArticleService {
      * @return Article entity
      */
     private Article getEntity(final long id) {
-        return this.repository.findById(id).orElseThrow(() -> new BoardException("Article not exists"));
+        return this.repository.findById(id)
+                .orElseThrow(() -> new BoardException(BoardExceptionMessage.E005.getValue()));
     }
 }

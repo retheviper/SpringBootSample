@@ -6,6 +6,7 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,7 @@ import com.retheviper.springbootsample.application.dto.board.ArticleDto;
 import com.retheviper.springbootsample.application.dto.board.BoardDto;
 import com.retheviper.springbootsample.application.dto.board.CategoryDto;
 import com.retheviper.springbootsample.application.service.board.ArticleService;
+import com.retheviper.springbootsample.common.constant.message.BoardExceptionMessage;
 import com.retheviper.springbootsample.common.exception.BoardException;
 
 import lombok.RequiredArgsConstructor;
@@ -35,7 +37,7 @@ import lombok.RequiredArgsConstructor;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/web/board/{boardId}/article")
+@RequestMapping("api/v1/web/boards/{boardId}/articles")
 public class ArticleApiController {
 
     /**
@@ -127,6 +129,7 @@ public class ArticleApiController {
      */
     @PutMapping("/{articleId}")
     @ResponseStatus(HttpStatus.OK)
+    @PostAuthorize("(returnObject.createdBy == authentication.principal.username) or hasRole('ROLE_ADMIN')")
     public ArticleViewModel updateArticle(@PathVariable final long boardId,
             @PathVariable final long articleId,
             @Validated @RequestBody final ArticleForm form) {
@@ -149,16 +152,23 @@ public class ArticleApiController {
     /**
      * Create view model.
      *
-     * @param dto Target DTO
-     * @return Generated view model
+     * @param dto target DTO
+     * @return generated view model
      */
     private ArticleViewModel createViewModel(final ArticleDto dto) {
         return this.mapper.map(dto, ArticleViewModel.class);
     }
 
+    /**
+     * Create DTO.
+     *
+     * @param boardId board ID
+     * @param form form for create article
+     * @return generated DTO
+     */
     private ArticleDto createDto(final long boardId, final ArticleForm form) {
         if (form.getCategoryId() == 0) {
-            throw new BoardException("Need to set category");
+            throw new BoardException(BoardExceptionMessage.E003.getValue());
         }
         final ArticleDto dto = this.mapper.map(form, ArticleDto.class);
         final BoardDto board = new BoardDto();

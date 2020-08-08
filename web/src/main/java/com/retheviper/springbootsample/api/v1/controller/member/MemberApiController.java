@@ -1,13 +1,13 @@
 package com.retheviper.springbootsample.api.v1.controller.member;
 
 import java.util.List;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotBlank;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,13 +33,8 @@ import lombok.RequiredArgsConstructor;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/web/member")
+@RequestMapping("api/v1/web/members")
 public class MemberApiController {
-
-    /**
-     * Pattern for check string is numeric
-     */
-    private final Pattern pattern;
 
     /**
      * Data model converter
@@ -71,13 +66,9 @@ public class MemberApiController {
      */
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public MemberViewModel getMember(@NotBlank @PathVariable final String id) {
+    public MemberViewModel getMember(@NotBlank @PathVariable final Long id) {
         final MemberDto dto = new MemberDto();
-        if (pattern.matcher(id).matches()) {
-            dto.setId(Long.parseLong(id));
-        } else {
-            dto.setUserId(id);
-        }
+        dto.setId(id);
         return createViewModel(this.service.getMember(dto));
     }
 
@@ -102,6 +93,7 @@ public class MemberApiController {
      */
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("#form.userId == authentication.principal.username")
     public MemberViewModel updateMember(@Validated @PathVariable final long id, @RequestBody final MemberForm form) {
         final MemberDto dto = this.mapper.map(form, MemberDto.class);
         dto.setId(id);

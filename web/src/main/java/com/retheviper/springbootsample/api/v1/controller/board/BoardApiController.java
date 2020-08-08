@@ -1,7 +1,6 @@
 package com.retheviper.springbootsample.api.v1.controller.board;
 
 import java.util.List;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -32,13 +31,8 @@ import lombok.RequiredArgsConstructor;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/web/board")
+@RequestMapping("api/v1/web/boards")
 public class BoardApiController {
-
-    /**
-     * Pattern for check string is numeric
-     */
-    private final Pattern pattern;
 
     /**
      * Data model converter
@@ -70,13 +64,9 @@ public class BoardApiController {
      */
     @GetMapping("/{boardId}")
     @ResponseStatus(HttpStatus.OK)
-    public BoardViewModel getBoard(@PathVariable final String boardId) {
+    public BoardViewModel getBoard(@PathVariable final Long boardId) {
         final BoardDto dto = new BoardDto();
-        if (pattern.matcher(boardId).matches()) {
-            dto.setId(Long.parseLong(boardId));
-        } else {
-            dto.setName(boardId);
-        }
+        dto.setId(boardId);
         return createViewModel(this.service.getBoard(dto));
     }
 
@@ -124,8 +114,8 @@ public class BoardApiController {
     /**
      * Create view model.
      *
-     * @param dto Target DTO
-     * @return Generated view model
+     * @param dto target DTO
+     * @return generated view model
      */
     private BoardViewModel createViewModel(final BoardDto dto) {
         return this.mapper.map(dto, BoardViewModel.class);

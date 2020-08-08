@@ -8,9 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.retheviper.springbootsample.application.dto.board.CommentDto;
-import com.retheviper.springbootsample.common.constant.message.MemberExceptionMessage;
+import com.retheviper.springbootsample.common.constant.message.BoardExceptionMessage;
 import com.retheviper.springbootsample.common.exception.BoardException;
-import com.retheviper.springbootsample.common.util.UserContext;
 import com.retheviper.springbootsample.domain.entity.board.Comment;
 import com.retheviper.springbootsample.domain.repository.board.CommentRepository;
 
@@ -80,9 +79,6 @@ public class CommentServiceImpl implements CommentService {
         final long articleId = dto.getArticle().getId();
         this.articleService.checkExists(articleId);
         final Comment entity = getEntity(dto.getId());
-        if (!UserContext.loginedUserMatches(entity.getCreatedBy())) {
-            throw new BoardException(MemberExceptionMessage.E004.getValue());
-        }
         dto.setArticle(this.articleService.getArticle(articleId));
         this.mapper.map(dto, entity);
         return save(entity);
@@ -94,9 +90,6 @@ public class CommentServiceImpl implements CommentService {
     @Override
     @Transactional
     public void deleteComment(final long id) {
-        if (!UserContext.loginedUserMatches(getEntity(id).getCreatedBy())) {
-            throw new BoardException(MemberExceptionMessage.E004.getValue());
-        }
         this.repository.deleteById(id);
     }
 
@@ -105,7 +98,7 @@ public class CommentServiceImpl implements CommentService {
      */
     public void checkExists(final long id) {
         if (!this.repository.existsById(id)) {
-            throw new BoardException("Comment not exists");
+            throw new BoardException(BoardExceptionMessage.E007.getValue());
         }
     }
 

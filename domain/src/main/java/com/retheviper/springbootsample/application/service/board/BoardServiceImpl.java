@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.retheviper.springbootsample.application.dto.board.BoardDto;
+import com.retheviper.springbootsample.common.constant.message.BoardExceptionMessage;
 import com.retheviper.springbootsample.common.exception.BoardException;
 import com.retheviper.springbootsample.domain.entity.board.Board;
 import com.retheviper.springbootsample.domain.repository.board.BoardRepository;
@@ -51,7 +52,7 @@ public class BoardServiceImpl implements BoardService {
     @Override
     @Transactional(readOnly = true)
     public BoardDto getBoard(final BoardDto dto) {
-        return createDto(dto.getName() != null ? getEntity(dto.getName()) : getEntity(dto.getId()));
+        return createDto(getEntity(dto.getId()));
     }
 
     /**
@@ -60,9 +61,7 @@ public class BoardServiceImpl implements BoardService {
     @Override
     @Transactional
     public BoardDto createBoard(final BoardDto dto) {
-        if (isExisting(dto)) {
-            throw new BoardException("Board exists");
-        }
+        checkAlreadyExists(dto.getName());
         return save(this.mapper.map(dto, Board.class));
     }
 
@@ -72,9 +71,8 @@ public class BoardServiceImpl implements BoardService {
     @Override
     @Transactional
     public BoardDto updateBoard(final BoardDto dto) {
-        if (!isExisting(dto)) {
-            throw new BoardException("Board not exists");
-        }
+        checkExists(dto.getId());
+        checkAlreadyExists(dto.getName());
         final Board entity = getEntity(dto.getId());
         this.mapper.map(dto, entity);
         return save(entity);
@@ -94,18 +92,19 @@ public class BoardServiceImpl implements BoardService {
      */
     public void checkExists(final long id) {
         if (!this.repository.existsById(id)) {
-            throw new BoardException("Board not exists");
+            throw new BoardException(BoardExceptionMessage.E001.getValue());
         }
     }
 
     /**
-     * Check new board name exists.
+     * Check board name can be created.
      *
-     * @param dto category DTO
-     * @return result of check
+     * @param name board name
      */
-    private boolean isExisting(final BoardDto dto) {
-        return this.repository.existsByName(dto.getName()) || this.repository.existsById(dto.getId());
+    private void checkAlreadyExists(final String name) {
+        if (this.repository.existsByName(name)) {
+            throw new BoardException(BoardExceptionMessage.E000.getValue());
+        }
     }
 
     /**
@@ -136,16 +135,6 @@ public class BoardServiceImpl implements BoardService {
      */
     private Board getEntity(final long id) {
         return this.repository.findById(id).orElseThrow(BoardException::new);
-    }
-
-    /**
-     * Get entity from repository.
-     *
-     * @param name Board's name
-     * @return Board entity
-     */
-    private Board getEntity(final String name) {
-        return this.repository.findByNameContaining(name).orElseThrow(BoardException::new);
     }
 
 }

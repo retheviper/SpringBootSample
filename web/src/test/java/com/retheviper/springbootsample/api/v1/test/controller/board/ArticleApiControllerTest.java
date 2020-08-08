@@ -12,7 +12,6 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.PagedModel;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import com.retheviper.springbootsample.api.v1.controller.board.ArticleApiController;
@@ -60,11 +59,10 @@ public class ArticleApiControllerTest {
     @Order(4)
     @WithMockUser(username = TEST_USER_ID, roles = MemberRole.USER)
     void listArticleTest() {
-        final PagedModel<EntityModel<ArticleViewModel>> response = this.controller.listArticle(1, 0, 20);
-        final Optional<ArticleViewModel> responseBody = StreamSupport.stream(response.spliterator(), false)
+        final Optional<ArticleViewModel> response = StreamSupport.stream(this.controller.listArticle(1, 0, 20).spliterator(), false)
                 .map(EntityModel<ArticleViewModel>::getContent).findAny();
         assertAll(() -> {
-            final ArticleViewModel view = assertDoesNotThrow(() -> responseBody.get());
+            final ArticleViewModel view = assertDoesNotThrow(() -> response.get());
             assertEquals(TEST_TITLE, view.getTitle());
             assertEquals(TEST_CONTENT, view.getContent());
             assertEquals(TEST_USER_ID, view.getCreatedBy());
@@ -112,6 +110,7 @@ public class ArticleApiControllerTest {
         form.setCategoryId(CATEGORY_ID);
         final ArticleViewModel response = this.controller.updateArticle(BOARD_ID, ARTICLE_ID, form);
         assertAll(() -> {
+            assertNotNull(response);
             assertEquals(TEST_TITLE_2, response.getTitle());
             assertEquals(TEST_CONTENT_2, response.getContent());
             assertEquals(TEST_USER_ID, response.getCreatedBy());

@@ -2,7 +2,7 @@ package com.retheviper.springbootsample.api.v1.test.controller.board;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -39,10 +39,12 @@ public class BordApiControllerTest {
     @Order(3)
     @WithMockUser(username = TEST_USER_ID, roles = MemberRole.USER)
     void listBoardTest() {
-        final List<BoardViewModel> response = this.controller.listBoard();
+        final Optional<BoardViewModel> response = this.controller.listBoard().stream()
+                .filter(b -> b.getId() == BOARD_ID)
+                .findAny();
         assertAll(() -> {
-            assertNotNull(response);
-            assertEquals(TEST_BOARD_NAME, response.get(0).getName());
+            final BoardViewModel view = assertDoesNotThrow(() -> response.get());
+            assertEquals(TEST_BOARD_NAME, view.getName());
         });
     }
 
@@ -50,7 +52,7 @@ public class BordApiControllerTest {
     @Order(2)
     @WithMockUser(username = TEST_USER_ID, roles = MemberRole.USER)
     void getBoardTest() {
-        final BoardViewModel response = this.controller.getBoard(TEST_BOARD_NAME);
+        final BoardViewModel response = this.controller.getBoard(BOARD_ID);
         assertAll(() -> {
             assertNotNull(response);
             assertEquals(TEST_BOARD_NAME, response.getName());
@@ -69,6 +71,7 @@ public class BordApiControllerTest {
             assertNotNull(response);
             assertEquals(TEST_BOARD_NAME, response.getName());
             assertEquals(TEST_DESCRIPTION, response.getDescription());
+            assertThrows(BoardException.class, () -> this.controller.createBoard(form));
         });
         BOARD_ID = response.getId();
     }
@@ -81,6 +84,7 @@ public class BordApiControllerTest {
         form.setName(TEST_BORD_NAME_2);
         final BoardViewModel response = this.controller.updateBoard(BOARD_ID, form);
         assertAll(() -> {
+            assertNotNull(response);
             assertEquals(TEST_BORD_NAME_2, response.getName());
         });
     }
@@ -91,7 +95,7 @@ public class BordApiControllerTest {
     void deleteBoardTest() {
         assertAll(() -> {
             assertDoesNotThrow(() -> this.controller.deleteBoard(BOARD_ID));
-            assertThrows(BoardException.class, () -> this.controller.getBoard(String.valueOf(BOARD_ID)));
+            assertThrows(BoardException.class, () -> this.controller.getBoard(BOARD_ID));
         });
     }
 }

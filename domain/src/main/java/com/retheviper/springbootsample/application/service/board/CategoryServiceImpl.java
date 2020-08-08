@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.retheviper.springbootsample.application.dto.board.CategoryDto;
+import com.retheviper.springbootsample.common.constant.message.BoardExceptionMessage;
 import com.retheviper.springbootsample.common.exception.BoardException;
 import com.retheviper.springbootsample.domain.entity.board.Category;
 import com.retheviper.springbootsample.domain.repository.board.CategoryRepository;
@@ -35,6 +36,11 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository repository;
 
     /**
+     * Board service
+     */
+    private final BoardService boardService;
+
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -51,7 +57,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional(readOnly = true)
     public CategoryDto getCategory(final CategoryDto dto) {
-        return createDto(dto.getName() != null ? getEntity(dto.getName()) : getEntity(dto.getId()));
+        return createDto(getEntity(dto.getId()));
     }
 
     /**
@@ -60,9 +66,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional
     public CategoryDto createCategory(final CategoryDto dto) {
-        if (isExistingInBoard(dto)) {
-            throw new BoardException("Category Already Exists");
-        }
+        checkAlreadyExists(dto);
         return save(this.mapper.map(dto, Category.class));
     }
 
@@ -72,12 +76,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional
     public CategoryDto updateCategory(final CategoryDto dto) {
-        if (!this.repository.existsById(dto.getId())) {
-            throw new BoardException("Category not Exists");
-        }
-        if (isExistingInBoard(dto)) {
-            throw new BoardException("Category Already Exists");
-        }
+        checkExists(dto.getId());
+        checkAlreadyExists(dto);
+        dto.setBoard(this.boardService.getBoard(dto.getBoard()));
         final Category entity = getEntity(dto.getId());
         this.mapper.map(dto, entity);
         return save(entity);
@@ -88,18 +89,20 @@ public class CategoryServiceImpl implements CategoryService {
      */
     public void checkExists(final long id) {
         if (!this.repository.existsById(id)) {
-            throw new BoardException("Category not exists");
+            throw new BoardException(BoardExceptionMessage.E003.getValue());
         }
     }
 
     /**
-     * Check new category's name exists in specific board.
+     * Check category's name can be created in specific board.
      *
      * @param dto category DTO
      * @return result of check
      */
-    private boolean isExistingInBoard(final CategoryDto dto) {
-        return this.repository.existsByNameAndBoardIdIs(dto.getName(), dto.getBoard().getId());
+    private void checkAlreadyExists(final CategoryDto dto) {
+        if (this.repository.existsByNameAndBoardIdIs(dto.getName(), dto.getBoard().getId())) {
+            throw new BoardException(BoardExceptionMessage.E002.getValue());
+        }
     }
 
     /**
@@ -138,17 +141,7 @@ public class CategoryServiceImpl implements CategoryService {
      * @return Category entity
      */
     private Category getEntity(final long id) {
-        return this.repository.findById(id).orElseThrow(NullPointerException::new);
+        return this.repository.findById(id)
+                .orElseThrow(() -> new BoardException(BoardExceptionMessage.E003.getValue()));
     }
-
-    /**
-     * Get entity from repository.
-     *
-     * @param name Category's name
-     * @return Category entity
-     */
-    private Category getEntity(final String name) {
-        return this.repository.findByNameContaining(name).orElseThrow(NullPointerException::new);
-    }
-
 }

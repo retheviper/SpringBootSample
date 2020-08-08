@@ -1,7 +1,5 @@
 package com.retheviper.springbootsample.application.config;
 
-import java.util.regex.Pattern;
-
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
@@ -33,13 +31,5 @@ public class CommonBeansConfig {
     @Bean
     public PasswordEncoder encoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    }
-
-    /**
-     * Pattern for check string is numeric.
-     */
-    @Bean
-    public Pattern numericPatternMatcher() {
-        return Pattern.compile("-?\\d+(\\.\\d+)?");
     }
 }
