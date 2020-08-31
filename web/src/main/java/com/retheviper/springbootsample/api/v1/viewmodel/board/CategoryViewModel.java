@@ -1,8 +1,8 @@
 package com.retheviper.springbootsample.api.v1.viewmodel.board;
 
-import java.io.Serializable;
-
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * Article category view model class.

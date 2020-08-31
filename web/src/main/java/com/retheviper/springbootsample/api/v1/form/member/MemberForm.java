@@ -1,10 +1,9 @@
 package com.retheviper.springbootsample.api.v1.form.member;
 
-import java.io.Serializable;
+import lombok.Data;
 
 import javax.validation.constraints.Size;
-
-import lombok.Data;
+import java.io.Serializable;
 
 /**
  * Member create form class.

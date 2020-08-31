@@ -1,20 +1,17 @@
 package com.retheviper.springbootsample.api.v1.security;
 
-import java.util.Date;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.retheviper.springbootsample.common.constant.type.HeaderType;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.interfaces.DecodedJWT;
-import com.retheviper.springbootsample.common.constant.type.HeaderType;
-
-import lombok.RequiredArgsConstructor;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 /**
  * Custom JWT verifier.
@@ -82,6 +79,7 @@ public class JWTVerifier {
 
     /**
      * Decode JWT.
+     *
      * @param token
      * @return
      */

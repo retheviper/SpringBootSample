@@ -1,8 +1,8 @@
 package com.retheviper.springbootsample.api.v1.viewmodel.board;
 
-import java.io.Serializable;
-
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * Board comment view model class.

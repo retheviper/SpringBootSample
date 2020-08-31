@@ -1,10 +1,9 @@
 package com.retheviper.springbootsample.domain.repository.member;
 
-import java.util.Optional;
-
+import com.retheviper.springbootsample.domain.entity.member.Member;
 import org.springframework.data.repository.CrudRepository;
 
-import com.retheviper.springbootsample.domain.entity.member.Member;
+import java.util.Optional;
 
 /**
  * Member repository.

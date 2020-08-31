@@ -1,13 +1,11 @@
 package com.retheviper.springbootsample.api.v1.security;
 
-import java.util.Date;
-import java.util.List;
-
+import com.auth0.jwt.JWT;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import com.auth0.jwt.JWT;
-
-import lombok.RequiredArgsConstructor;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Cusotm JWT provider.

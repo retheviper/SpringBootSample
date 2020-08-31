@@ -1,15 +1,12 @@
 package com.retheviper.springbootsample.api.v1.security;
 
-import java.util.Base64;
-
-import javax.annotation.PostConstruct;
-
+import com.auth0.jwt.algorithms.Algorithm;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.auth0.jwt.algorithms.Algorithm;
-
-import lombok.Getter;
+import javax.annotation.PostConstruct;
+import java.util.Base64;
 
 /**
  * Custom JWT Settings.

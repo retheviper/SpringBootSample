@@ -1,12 +1,10 @@
 package com.retheviper.springbootsample.application.dto.member;
 
-import java.util.List;
+import com.retheviper.springbootsample.application.dto.board.BoardDto;
+import lombok.Data;
 
 import javax.validation.constraints.Email;
-
-import com.retheviper.springbootsample.application.dto.board.BoardDto;
-
-import lombok.Data;
+import java.util.List;
 
 /**
  * Member information DTO class.

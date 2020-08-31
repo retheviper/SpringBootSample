@@ -1,8 +1,8 @@
 package com.retheviper.springbootsample.application.service.member;
 
-import java.util.List;
-
 import com.retheviper.springbootsample.application.dto.member.MemberInformationDto;
+
+import java.util.List;
 
 /**
  * Member information service class.

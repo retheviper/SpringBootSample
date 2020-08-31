@@ -1,24 +1,5 @@
 package com.retheviper.springbootsample.api.v1.controller.board;
 
-import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.PagedModel;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PostAuthorize;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.retheviper.springbootsample.api.v1.form.board.ArticleForm;
 import com.retheviper.springbootsample.api.v1.viewmodel.board.ArticleViewModel;
 import com.retheviper.springbootsample.application.dto.board.ArticleDto;
@@ -27,8 +8,16 @@ import com.retheviper.springbootsample.application.dto.board.CategoryDto;
 import com.retheviper.springbootsample.application.service.board.ArticleService;
 import com.retheviper.springbootsample.common.constant.message.BoardExceptionMessage;
 import com.retheviper.springbootsample.common.exception.BoardException;
-
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Board article controller class.
@@ -59,14 +48,14 @@ public class ArticleApiController {
      * Get list of board articles.
      *
      * @param boardId board ID
-     * @param page current page
-     * @param size number of rows
+     * @param page    current page
+     * @param size    number of rows
      * @return paged list of board articles
      */
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public PagedModel<EntityModel<ArticleViewModel>> listArticle(@PathVariable final long boardId,
-            @RequestParam final int page, @RequestParam final int size) {
+                                                                 @RequestParam final int page, @RequestParam final int size) {
         return this.assembler
                 .toModel(this.service.listArticle(boardId, PageRequest.of(page, size))
                         .map(this::createViewModel));
@@ -75,20 +64,20 @@ public class ArticleApiController {
     /**
      * Get list of board articles with keyword.
      *
-     * @param boardId board ID
-     * @param page current page
-     * @param size number of rows
-     * @param keyword keyword for search
+     * @param boardId     board ID
+     * @param page        current page
+     * @param size        number of rows
+     * @param keyword     keyword for search
      * @param keywordType type of keyword
      * @return paged list of board articles with keyword
      */
     @GetMapping("/search")
     @ResponseStatus(HttpStatus.OK)
     public PagedModel<EntityModel<ArticleViewModel>> searchArticle(@PathVariable final long boardId,
-            @RequestParam final int page,
-            @RequestParam final int size,
-            @RequestParam final String keyword,
-            @RequestParam(required = false, defaultValue = "0") final int keywordType) {
+                                                                   @RequestParam final int page,
+                                                                   @RequestParam final int size,
+                                                                   @RequestParam final String keyword,
+                                                                   @RequestParam(required = false, defaultValue = "0") final int keywordType) {
         return this.assembler
                 .toModel(this.service.listArticle(boardId, PageRequest.of(page, size), keyword, keywordType)
                         .map(this::createViewModel));
@@ -110,13 +99,13 @@ public class ArticleApiController {
      * Create single board article.
      *
      * @param boardId board ID
-     * @param form request form
+     * @param form    request form
      * @return created single board article
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ArticleViewModel createArticle(@PathVariable final long boardId,
-            @Validated @RequestBody final ArticleForm form) {
+                                          @Validated @RequestBody final ArticleForm form) {
         return createViewModel(this.service.createArticle(createDto(boardId, form)));
     }
 
@@ -124,15 +113,15 @@ public class ArticleApiController {
      * Update existing single board article.
      *
      * @param boardId board ID
-     * @param form request form
+     * @param form    request form
      * @return updated single board article
      */
     @PutMapping("/{articleId}")
     @ResponseStatus(HttpStatus.OK)
     @PostAuthorize("(returnObject.createdBy == authentication.principal.username) or hasRole('ROLE_ADMIN')")
     public ArticleViewModel updateArticle(@PathVariable final long boardId,
-            @PathVariable final long articleId,
-            @Validated @RequestBody final ArticleForm form) {
+                                          @PathVariable final long articleId,
+                                          @Validated @RequestBody final ArticleForm form) {
         final ArticleDto dto = createDto(boardId, form);
         dto.setId(articleId);
         return createViewModel(this.service.updateArticle(dto));
@@ -163,7 +152,7 @@ public class ArticleApiController {
      * Create DTO.
      *
      * @param boardId board ID
-     * @param form form for create article
+     * @param form    form for create article
      * @return generated DTO
      */
     private ArticleDto createDto(final long boardId, final ArticleForm form) {

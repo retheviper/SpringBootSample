@@ -1,10 +1,10 @@
 package com.retheviper.springbootsample.api.v1.viewmodel.member;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
-
-import lombok.Data;
 
 /**
  * Member view model class.

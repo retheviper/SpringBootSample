@@ -1,5 +1,7 @@
 package com.retheviper.springbootsample.api.v1.config;
 
+import com.retheviper.springbootsample.api.v1.security.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -8,16 +10,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import com.retheviper.springbootsample.api.v1.security.JWTAccessDeniedHandler;
-import com.retheviper.springbootsample.api.v1.security.JWTAuthenticationEntryPoint;
-import com.retheviper.springbootsample.api.v1.security.JWTAuthenticationFailureHandler;
-import com.retheviper.springbootsample.api.v1.security.JWTAuthenticationFilter;
-import com.retheviper.springbootsample.api.v1.security.JWTAuthenticationSuccessHandler;
-import com.retheviper.springbootsample.api.v1.security.JWTLogoutSuccessHandler;
-import com.retheviper.springbootsample.api.v1.security.JsonUsernamePasswordAuthenticationFilter;
-
-import lombok.RequiredArgsConstructor;
 
 /**
  * Configuration class for Spring Security.

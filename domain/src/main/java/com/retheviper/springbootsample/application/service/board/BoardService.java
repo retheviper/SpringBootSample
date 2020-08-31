@@ -1,8 +1,8 @@
 package com.retheviper.springbootsample.application.service.board;
 
-import java.util.List;
-
 import com.retheviper.springbootsample.application.dto.board.BoardDto;
+
+import java.util.List;
 
 /**
  * Board service class.

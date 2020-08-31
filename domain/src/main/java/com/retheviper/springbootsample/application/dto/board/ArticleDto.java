@@ -1,8 +1,8 @@
 package com.retheviper.springbootsample.application.dto.board;
 
-import java.time.LocalDateTime;
-
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 /**
  * Board article DTO class.

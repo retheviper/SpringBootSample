@@ -1,8 +1,8 @@
 package com.retheviper.springbootsample.application.service.board;
 
-import java.util.List;
-
 import com.retheviper.springbootsample.application.dto.board.CommentDto;
+
+import java.util.List;
 
 /**
  * Article comment service class.

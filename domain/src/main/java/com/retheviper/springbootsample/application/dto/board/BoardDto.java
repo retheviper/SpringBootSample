@@ -1,8 +1,8 @@
 package com.retheviper.springbootsample.application.dto.board;
 
-import java.io.Serializable;
-
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * Board DTO class.

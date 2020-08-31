@@ -1,19 +1,17 @@
 package com.retheviper.springbootsample.application.service.board;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.retheviper.springbootsample.application.dto.board.CommentDto;
 import com.retheviper.springbootsample.common.constant.message.BoardExceptionMessage;
 import com.retheviper.springbootsample.common.exception.BoardException;
 import com.retheviper.springbootsample.domain.entity.board.Comment;
 import com.retheviper.springbootsample.domain.repository.board.CommentRepository;
-
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Article comment service class. (Implementation)

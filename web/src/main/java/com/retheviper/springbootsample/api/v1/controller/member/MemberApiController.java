@@ -1,30 +1,19 @@
 package com.retheviper.springbootsample.api.v1.controller.member;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.validation.constraints.NotBlank;
-
-import org.modelmapper.ModelMapper;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.retheviper.springbootsample.api.v1.form.member.MemberForm;
 import com.retheviper.springbootsample.api.v1.viewmodel.member.MemberViewModel;
 import com.retheviper.springbootsample.application.dto.member.MemberDto;
 import com.retheviper.springbootsample.application.service.member.MemberService;
-
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.constraints.NotBlank;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Member API controller class.
@@ -87,7 +76,7 @@ public class MemberApiController {
     /**
      * Update existing single member.
      *
-     * @param id member ID
+     * @param id   member ID
      * @param form request form
      * @return updated single member
      */
@@ -103,7 +92,7 @@ public class MemberApiController {
     /**
      * Delete existing single member.
      *
-     * @param id member ID
+     * @param id       member ID
      * @param password member password
      */
     @DeleteMapping("/{id}")

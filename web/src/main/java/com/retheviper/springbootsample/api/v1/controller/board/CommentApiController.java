@@ -1,29 +1,19 @@
 package com.retheviper.springbootsample.api.v1.controller.board;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.modelmapper.ModelMapper;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PostAuthorize;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.retheviper.springbootsample.api.v1.form.board.CommentForm;
 import com.retheviper.springbootsample.api.v1.viewmodel.board.CommentViewModel;
 import com.retheviper.springbootsample.application.dto.board.ArticleDto;
 import com.retheviper.springbootsample.application.dto.board.CommentDto;
 import com.retheviper.springbootsample.application.service.board.CommentService;
-
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Article comment controller class.
@@ -78,7 +68,7 @@ public class CommentApiController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CommentViewModel createComment(@PathVariable final long articleId,
-            @Validated @RequestBody final CommentForm form) {
+                                          @Validated @RequestBody final CommentForm form) {
         final CommentDto dto = this.mapper.map(form, CommentDto.class);
         final ArticleDto article = new ArticleDto();
         article.setId(articleId);
@@ -90,14 +80,14 @@ public class CommentApiController {
      * Update single comment.
      *
      * @param commentId comment ID
-     * @param form request form
+     * @param form      request form
      * @return updated single comment
      */
     @PutMapping("/{commentId}")
     @ResponseStatus(HttpStatus.OK)
     @PostAuthorize("returnObject.createdBy == authentication.principal.username")
     public CommentViewModel updateComment(@PathVariable final long articleId, @PathVariable final long commentId,
-            @Validated @RequestBody final CommentForm form) {
+                                          @Validated @RequestBody final CommentForm form) {
         final CommentDto dto = this.mapper.map(form, CommentDto.class);
         dto.setId(commentId);
         final ArticleDto article = new ArticleDto();

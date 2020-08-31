@@ -1,10 +1,11 @@
 package com.retheviper.springbootsample.api.v1.test.controller.board;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.Optional;
-import java.util.stream.StreamSupport;
-
+import com.retheviper.springbootsample.api.v1.controller.board.ArticleApiController;
+import com.retheviper.springbootsample.api.v1.form.board.ArticleForm;
+import com.retheviper.springbootsample.api.v1.test.controller.testbase.BoardTestBase;
+import com.retheviper.springbootsample.api.v1.viewmodel.board.ArticleViewModel;
+import com.retheviper.springbootsample.common.constant.MemberRole;
+import com.retheviper.springbootsample.common.exception.BoardException;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -14,12 +15,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.security.test.context.support.WithMockUser;
 
-import com.retheviper.springbootsample.api.v1.controller.board.ArticleApiController;
-import com.retheviper.springbootsample.api.v1.form.board.ArticleForm;
-import com.retheviper.springbootsample.api.v1.test.controller.testbase.BoardTestBase;
-import com.retheviper.springbootsample.api.v1.viewmodel.board.ArticleViewModel;
-import com.retheviper.springbootsample.common.constant.MemberRole;
-import com.retheviper.springbootsample.common.exception.BoardException;
+import java.util.Optional;
+import java.util.stream.StreamSupport;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @TestMethodOrder(OrderAnnotation.class)

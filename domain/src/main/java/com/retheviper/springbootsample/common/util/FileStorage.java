@@ -1,5 +1,8 @@
 package com.retheviper.springbootsample.common.util;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -7,9 +10,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Base64;
 import java.util.UUID;
-
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 
 /**
  * Utility class for store file.
@@ -22,9 +22,9 @@ public class FileStorage {
     /**
      * Store file data and returns stored file name.
      *
-     * @param path Path to store file
+     * @param path             Path to store file
      * @param originalFileName Original file name
-     * @param source source data
+     * @param source           source data
      * @return Stored file name
      */
     public static String storeFile(final String path, final String originalFileName, final InputStream source) {
@@ -42,7 +42,7 @@ public class FileStorage {
     /**
      * Get stored file as base64 string.
      *
-     * @param path Path to store file
+     * @param path           Path to store file
      * @param storedFileName Stored file name
      * @return base64 encoded string
      */

@@ -1,10 +1,9 @@
 package com.retheviper.springbootsample.domain.repository.board;
 
-import java.util.List;
-
+import com.retheviper.springbootsample.domain.entity.board.Category;
 import org.springframework.data.repository.CrudRepository;
 
-import com.retheviper.springbootsample.domain.entity.board.Category;
+import java.util.List;
 
 /**
  * Article category repository.

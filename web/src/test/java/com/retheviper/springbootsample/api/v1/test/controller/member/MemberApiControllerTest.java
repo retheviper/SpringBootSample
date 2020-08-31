@@ -1,9 +1,10 @@
 package com.retheviper.springbootsample.api.v1.test.controller.member;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.Optional;
-
+import com.retheviper.springbootsample.api.v1.controller.member.MemberApiController;
+import com.retheviper.springbootsample.api.v1.form.member.MemberForm;
+import com.retheviper.springbootsample.api.v1.viewmodel.member.MemberViewModel;
+import com.retheviper.springbootsample.common.constant.MemberRole;
+import com.retheviper.springbootsample.common.exception.MemberException;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -13,11 +14,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 
-import com.retheviper.springbootsample.api.v1.controller.member.MemberApiController;
-import com.retheviper.springbootsample.api.v1.form.member.MemberForm;
-import com.retheviper.springbootsample.api.v1.viewmodel.member.MemberViewModel;
-import com.retheviper.springbootsample.common.constant.MemberRole;
-import com.retheviper.springbootsample.common.exception.MemberException;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @TestMethodOrder(OrderAnnotation.class)

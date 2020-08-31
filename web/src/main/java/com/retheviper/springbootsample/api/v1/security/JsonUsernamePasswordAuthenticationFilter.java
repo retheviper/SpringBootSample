@@ -1,20 +1,18 @@
 package com.retheviper.springbootsample.api.v1.security;
 
-import java.io.IOException;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Custom UsernamePasswordAuthenticationFilter for credentials with JSON.
@@ -76,7 +74,7 @@ public class JsonUsernamePasswordAuthenticationFilter extends UsernamePasswordAu
     /**
      * Get parameter from request.
      *
-     * @param request HTTP Request
+     * @param request   HTTP Request
      * @param parameter parameter's name
      * @return requested parameter
      */

@@ -1,9 +1,9 @@
 package com.retheviper.springbootsample.api.v1.viewmodel.board;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
-import lombok.Data;
 
 /**
  * Article comment view model class.

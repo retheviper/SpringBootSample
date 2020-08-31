@@ -1,10 +1,9 @@
 package com.retheviper.springbootsample.domain.repository.board;
 
-import java.util.List;
-
+import com.retheviper.springbootsample.domain.entity.board.Comment;
 import org.springframework.data.repository.CrudRepository;
 
-import com.retheviper.springbootsample.domain.entity.board.Comment;
+import java.util.List;
 
 /**
  * Article comment repository.

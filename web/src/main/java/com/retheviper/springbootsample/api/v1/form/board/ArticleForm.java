@@ -1,10 +1,9 @@
 package com.retheviper.springbootsample.api.v1.form.board;
 
-import java.io.Serializable;
+import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
-
-import lombok.Data;
+import java.io.Serializable;
 
 @Data
 public class ArticleForm implements Serializable {

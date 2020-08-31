@@ -1,15 +1,13 @@
 package com.retheviper.springbootsample.api.v1.test.controller.testbase;
 
-import org.springframework.boot.test.context.TestComponent;
-
 import com.retheviper.springbootsample.api.v1.controller.board.ArticleApiController;
 import com.retheviper.springbootsample.api.v1.controller.board.BoardApiController;
 import com.retheviper.springbootsample.api.v1.controller.board.CategoryApiController;
 import com.retheviper.springbootsample.api.v1.form.board.ArticleForm;
 import com.retheviper.springbootsample.api.v1.form.board.BoardForm;
 import com.retheviper.springbootsample.api.v1.form.board.CategoryForm;
-
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.test.context.TestComponent;
 
 @TestComponent
 @RequiredArgsConstructor

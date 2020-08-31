@@ -1,10 +1,10 @@
 package com.retheviper.springbootsample.common.constant.message;
 
-import java.util.stream.Stream;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.stream.Stream;
 
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)

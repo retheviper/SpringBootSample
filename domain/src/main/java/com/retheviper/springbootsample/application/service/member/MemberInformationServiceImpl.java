@@ -1,20 +1,18 @@
 package com.retheviper.springbootsample.application.service.member;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
-import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.retheviper.springbootsample.application.dto.member.MemberInformationDto;
 import com.retheviper.springbootsample.common.constant.message.MemberExceptionMessage;
 import com.retheviper.springbootsample.common.exception.MemberException;
 import com.retheviper.springbootsample.domain.entity.member.MemberInformation;
 import com.retheviper.springbootsample.domain.repository.member.MemberInformationRepository;
-
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * Member information service class. (Implementation)

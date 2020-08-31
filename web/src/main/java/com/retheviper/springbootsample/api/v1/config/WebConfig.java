@@ -1,12 +1,10 @@
 package com.retheviper.springbootsample.api.v1.config;
 
+import com.retheviper.springbootsample.api.v1.interceptor.LogInterceptor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import com.retheviper.springbootsample.api.v1.interceptor.LogInterceptor;
-
-import lombok.RequiredArgsConstructor;
 
 @Configuration
 @RequiredArgsConstructor
