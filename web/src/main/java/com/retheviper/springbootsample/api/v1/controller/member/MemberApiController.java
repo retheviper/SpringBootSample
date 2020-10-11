@@ -1,6 +1,7 @@
 package com.retheviper.springbootsample.api.v1.controller.member;
 
 import com.retheviper.springbootsample.api.v1.form.member.MemberForm;
+import com.retheviper.springbootsample.api.v1.security.IdentityVerificationUtil;
 import com.retheviper.springbootsample.api.v1.viewmodel.member.MemberViewModel;
 import com.retheviper.springbootsample.application.dto.member.MemberDto;
 import com.retheviper.springbootsample.application.service.member.MemberService;
@@ -100,8 +101,13 @@ public class MemberApiController {
     public void deleteMember(@NotBlank @PathVariable final long id, @NotBlank @RequestBody final String password) {
         final MemberDto dto = new MemberDto();
         dto.setId(id);
-        dto.setPassword(password);
-        this.service.deleteMember(dto);
+        final MemberDto reference =  this.service.getMember(dto);
+        if (IdentityVerificationUtil.isLoginedUser(reference.getName())) {
+            dto.setPassword(password);
+            this.service.deleteMember(dto);
+        } else {
+            throw new RuntimeException("User not match");
+        }
     }
 
     /**

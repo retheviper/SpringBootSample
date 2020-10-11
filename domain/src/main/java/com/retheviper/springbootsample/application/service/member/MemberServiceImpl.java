@@ -107,7 +107,7 @@ public class MemberServiceImpl implements MemberService {
     /**
      * Save entity to repository and get result.
      *
-     * @param entity enitity to save
+     * @param entity entity to save
      * @return Saved result as DTO
      */
     private MemberDto save(final Member entity) {
@@ -136,9 +136,9 @@ public class MemberServiceImpl implements MemberService {
     }
 
     /**
-     * Get entity from repository and check member's password matches with inputed value.
+     * Get entity from repository and check member's password matches with inputted value.
      *
-     * @param dto Member DTO
+     * @param id Member's ID
      * @return Entity that password checked
      */
     private Member getEntity(final long id, final String password) {
