@@ -18,7 +18,7 @@ dependencies {
     api 'io.springfox:springfox-swagger2:3.0.0'
     api 'io.springfox:springfox-swagger-ui:3.0.0'
     api 'com.auth0:java-jwt:3.15.0'
-    api 'org.modelmapper:modelmapper:2.4.0'
+    api 'org.modelmapper:modelmapper:2.4.1'
     api 'org.springframework.boot:spring-boot-starter-web'
     api 'org.springframework.boot:spring-boot-starter-data-jpa'
     api 'org.springframework.boot:spring-boot-starter-security'
