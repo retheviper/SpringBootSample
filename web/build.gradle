@@ -33,7 +33,7 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
     implementation project(':springbootsample-domain')
-    implementation 'org.modelmapper:modelmapper:2.4.1'
+    implementation 'org.modelmapper:modelmapper:2.4.2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
