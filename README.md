@@ -6,8 +6,27 @@ A simple sample of Rest API by Spring Boot with Java 11.
 
 ## Includes
 
-- Gradle (With Groovy)
+- Gradle Multi Project (With Groovy)
 - Lombok
 - JUnit 5 Tests
 - Spring Security with JWT
 - Spring Data JPA with H2
+
+## Architecture
+
+- web: MVC/Remoting layer
+  - config: configuration classes
+  - controller: rest controllers
+  - form: request bodies
+  - interceptor: interceptors
+  - security: utilities for security
+  - viewmodel: response bodies
+- domain: business logic and data access layer
+  - application: business logics
+    - config: configuration classes
+    - dto: dtos
+    - sevice: service classes
+    - common: constants, exception, utilities
+  - domain: data access
+    - entity: entities
+    - repository: repositories
