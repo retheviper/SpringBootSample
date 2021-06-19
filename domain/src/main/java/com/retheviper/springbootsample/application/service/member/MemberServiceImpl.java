@@ -1,9 +1,11 @@
 package com.retheviper.springbootsample.application.service.member;
 
+import com.retheviper.springbootsample.application.dto.member.MemberCsvDto;
 import com.retheviper.springbootsample.application.dto.member.MemberDto;
 import com.retheviper.springbootsample.common.constant.MemberRole;
 import com.retheviper.springbootsample.common.constant.message.MemberExceptionMessage;
 import com.retheviper.springbootsample.common.exception.MemberException;
+import com.retheviper.springbootsample.common.util.CsvUtil;
 import com.retheviper.springbootsample.domain.entity.member.Member;
 import com.retheviper.springbootsample.domain.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.InputStream;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,6 +43,19 @@ public class MemberServiceImpl implements MemberService {
      * Member repository
      */
     private final MemberRepository repository;
+
+    @Override
+    public InputStream listMemberCsv() {
+        try {
+            final List<MemberCsvDto> data = listMember()
+                    .stream()
+                    .map(member -> mapper.map(member, MemberCsvDto.class))
+                    .collect(Collectors.toUnmodifiableList());
+            return CsvUtil.createCsv(data);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     /**
      * {@inheritDoc}

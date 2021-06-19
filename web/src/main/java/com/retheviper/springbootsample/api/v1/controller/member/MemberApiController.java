@@ -2,12 +2,15 @@ package com.retheviper.springbootsample.api.v1.controller.member;
 
 import com.retheviper.springbootsample.api.v1.form.member.MemberForm;
 import com.retheviper.springbootsample.api.v1.security.IdentityVerificationUtil;
+import com.retheviper.springbootsample.api.v1.util.ResponseUtil;
 import com.retheviper.springbootsample.api.v1.viewmodel.member.MemberViewModel;
 import com.retheviper.springbootsample.application.dto.member.MemberDto;
 import com.retheviper.springbootsample.application.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +38,16 @@ public class MemberApiController {
      * Member service class
      */
     private final MemberService service;
+
+    /**
+     * Get CSV file of members list.
+     *
+     * @return CSV file data
+     */
+    @GetMapping("/csv")
+    public ResponseEntity<Resource> listMemberCsv() {
+        return ResponseUtil.createByInputStream("members.csv", this.service.listMemberCsv());
+    }
 
     /**
      * Get list of members.
@@ -101,7 +114,7 @@ public class MemberApiController {
     public void deleteMember(@NotBlank @PathVariable final long id, @NotBlank @RequestBody final String password) {
         final MemberDto dto = new MemberDto();
         dto.setId(id);
-        final MemberDto reference =  this.service.getMember(dto);
+        final MemberDto reference = this.service.getMember(dto);
         if (IdentityVerificationUtil.isLoginedUser(reference.getName())) {
             dto.setPassword(password);
             this.service.deleteMember(dto);

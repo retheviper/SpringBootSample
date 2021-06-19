@@ -2,6 +2,7 @@ package com.retheviper.springbootsample.application.service.member;
 
 import com.retheviper.springbootsample.application.dto.member.MemberDto;
 
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -10,6 +11,13 @@ import java.util.List;
  * @author retheviper
  */
 public interface MemberService {
+
+    /**
+     * Get list of members to CSV file Data.
+     *
+     * @return CSV file of members list
+     */
+    InputStream listMemberCsv();
 
     /**
      * Get list of members.
