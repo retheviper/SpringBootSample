@@ -27,5 +27,12 @@ dependencies {
     api 'com.opencsv:opencsv:5.4'
 }
 
-bootJar.enabled = false
-jar.enabled = true
+bootRun{
+    enabled = false
+}
+bootJar {
+    enabled = false
+}
+jar {
+    enabled = true
+}
