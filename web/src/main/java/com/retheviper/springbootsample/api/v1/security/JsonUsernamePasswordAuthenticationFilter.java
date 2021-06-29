@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -56,15 +57,17 @@ public class JsonUsernamePasswordAuthenticationFilter extends UsernamePasswordAu
         if (headerContentTypeIsJson(request)) {
             final ObjectMapper mapper = new ObjectMapper();
             try {
-                this.jsonRequest = mapper.readValue(request.getReader().lines().collect(Collectors.joining()),
-                        new TypeReference<Map<String, String>>() {
+                this.jsonRequest = mapper.readValue(
+                        request.getReader()
+                                .lines()
+                                .collect(Collectors.joining()), new TypeReference<>() {
                         });
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
-        final String username = obtainUsername(request) != null ? obtainUsername(request).trim() : "";
-        final String password = obtainPassword(request) != null ? obtainPassword(request).trim() : "";
+        final String username = obtainUsername(request) != null ? Objects.requireNonNull(obtainUsername(request)).trim() : "";
+        final String password = obtainPassword(request) != null ? Objects.requireNonNull(obtainPassword(request)).trim() : "";
         final UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username,
                 password);
         setDetails(request, authRequest);
