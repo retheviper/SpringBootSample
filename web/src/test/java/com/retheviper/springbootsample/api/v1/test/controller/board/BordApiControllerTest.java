@@ -42,7 +42,7 @@ public class BordApiControllerTest {
                 .filter(b -> b.getId() == BOARD_ID)
                 .findAny();
         assertAll(() -> {
-            final BoardViewModel view = assertDoesNotThrow(() -> response.get());
+            final BoardViewModel view = assertDoesNotThrow(response::get);
             assertEquals(TEST_BOARD_NAME, view.getName());
         });
     }

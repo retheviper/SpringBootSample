@@ -57,7 +57,7 @@ public class CommentApiControllerTest {
     void listCommentTest() {
         final Optional<CommentViewModel> response = this.controller.listComment(ARTICLE_ID).stream().findAny();
         assertAll(() -> {
-            final CommentViewModel view = assertDoesNotThrow(() -> response.get());
+            final CommentViewModel view = assertDoesNotThrow(response::get);
             assertEquals(TEST_CONTENT, view.getContent());
             assertEquals(TEST_USER_ID, view.getCreatedBy());
         });

@@ -51,7 +51,7 @@ public class CategoryApiControllerTest {
     void listCategoryTest() {
         final Optional<CategoryViewModel> response = this.controller.listCategory(BOARD_ID).stream().findAny();
         assertAll(() -> {
-            final CategoryViewModel view = assertDoesNotThrow(() -> response.get());
+            final CategoryViewModel view = assertDoesNotThrow(response::get);
             assertEquals(CATEGORY_ID, view.getId());
             assertEquals(TEST_NAME, view.getName());
         });
