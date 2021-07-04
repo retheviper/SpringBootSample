@@ -15,6 +15,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 
 import java.util.Optional;
 
+import static com.retheviper.springbootsample.api.v1.test.controller.testbase.TestConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -22,14 +23,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class BordApiControllerTest {
 
     private static long BOARD_ID;
-
-    private static final String TEST_USER_ID = "TEST_USER_ID";
-
-    private static final String TEST_BOARD_NAME = "TEST_BOARD_NAME";
-
-    private static final String TEST_DESCRIPTION = "TEST_DESCRIPTION";
-
-    private static final String TEST_BORD_NAME_2 = "TEST_BOARD_NAME_2";
 
     @Autowired
     private BoardApiController controller;

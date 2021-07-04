@@ -18,6 +18,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
+import static com.retheviper.springbootsample.api.v1.test.controller.testbase.TestConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -32,16 +33,6 @@ public class ArticleApiControllerTest {
     private static long CATEGORY_ID;
 
     private static long ARTICLE_ID;
-
-    private static final String TEST_USER_ID = "TEST_USER_ID";
-
-    private static final String TEST_TITLE = "TEST_TITLE";
-
-    private static final String TEST_TITLE_2 = "TEST_TITLE_2";
-
-    private static final String TEST_CONTENT = "TEST_CONTENT";
-
-    private static final String TEST_CONTENT_2 = "TEST_CONTENT_2";
 
     @Autowired
     private ArticleApiController controller;
@@ -58,8 +49,10 @@ public class ArticleApiControllerTest {
     @Order(4)
     @WithMockUser(username = TEST_USER_ID, roles = MemberRole.USER)
     void listArticleTest() {
-        final Optional<ArticleViewModel> response = StreamSupport.stream(this.controller.listArticle(1, 0, 20).spliterator(), false)
-                .map(EntityModel::getContent).findAny();
+        final Optional<ArticleViewModel> response = StreamSupport
+                .stream(this.controller.listArticle(1, 0, 20).spliterator(), false)
+                .map(EntityModel::getContent)
+                .findAny();
         assertAll(() -> {
             final ArticleViewModel view = assertDoesNotThrow(response::get);
             assertEquals(TEST_TITLE, view.getTitle());

@@ -16,6 +16,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 
 import java.util.Optional;
 
+import static com.retheviper.springbootsample.api.v1.test.controller.testbase.TestConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -28,12 +29,6 @@ public class CategoryApiControllerTest {
     private static long BOARD_ID;
 
     private static long CATEGORY_ID;
-
-    private static final String TEST_USER_ID = "TEST_USER_ID";
-
-    private static final String TEST_NAME = "TEST_CATEGORY_NAME";
-
-    private static final String TEST_NAME_2 = "TEST_CATEGORY_NAME_2";
 
     @Autowired
     private CategoryApiController controller;
