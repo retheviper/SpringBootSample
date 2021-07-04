@@ -1,0 +1,490 @@
+{
+	"info": {
+		"_postman_id": "94071f19-0b95-4d45-9721-b0ff265271e0",
+		"name": "SpringBootSample",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Member",
+			"protocolProfileBehavior": {
+				"followAuthorizationHeader": false
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userId\": \"viper\",\n\t\"name\": \"viper\",\n\t\"password\": \"1234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/web/members",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"web",
+						"members"
+					],
+					"query": [
+						{
+							"key": "uid",
+							"value": "viper",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "viper",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "1234a",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Signin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"admin\",\n\t\"password\": \"1234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/web/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"web",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Member",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-AUTH-TOKEN",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2aXBlciIsInJvbGVzIjpbIlVTRVIiXSwiZXhwIjoxNjI0ODg1OTk1LCJpYXQiOjE2MjQ4ODIzOTV9.9VpQqYmMlsWG5LRPdwFv9kfdyWdqXTTl3db_7oEJ7bQlk--gjkgLpllHrwscYCS3BUP6tN6wlRdI9DSSSAapYg",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/web/members/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"web",
+						"members",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Member",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-AUTH-TOKEN",
+						"type": "text",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2aXBlciIsInJvbGVzIjpbIlVTRVIiXSwiZXhwIjoxNjI0ODg2MDk5LCJpYXQiOjE2MjQ4ODI0OTl9.qqRsNjdq6pIs4Nl43XNNZXhcYydQsbKSXAxaJOE2YVufHqvVSLJdarlsQRksC4jumfKKowOqOZ1_T3vUtatudg"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userId\": \"viper\",\n\t\"name\": \"viper1234\",\n\t\"password\": \"1234\",\n    \"newPassword\": \"4321\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/web/members/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"web",
+						"members",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create  board",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-AUTH-TOKEN",
+						"type": "text",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2aXBlciIsInJvbGVzIjpbIlVTRVIiXSwiZXhwIjoxNjI0ODg2MDk5LCJpYXQiOjE2MjQ4ODI0OTl9.qqRsNjdq6pIs4Nl43XNNZXhcYydQsbKSXAxaJOE2YVufHqvVSLJdarlsQRksC4jumfKKowOqOZ1_T3vUtatudg"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"testboard\",\n\t\"description\": \"board for test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/web/boards",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"web",
+						"boards"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Category",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-AUTH-TOKEN",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2aXBlciIsInJvbGVzIjpbIlVTRVIiXSwiZXhwIjoxNjI0ODg2MDk5LCJpYXQiOjE2MjQ4ODI0OTl9.qqRsNjdq6pIs4Nl43XNNZXhcYydQsbKSXAxaJOE2YVufHqvVSLJdarlsQRksC4jumfKKowOqOZ1_T3vUtatudg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"free\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/web/boards/1/categories",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"web",
+						"boards",
+						"1",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Category",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/web/boards/1/categories",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"web",
+						"boards",
+						"1",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Category",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-AUTH-TOKEN",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2aXBlciIsInJvbGVzIjpbIlVTRVIiXSwiZXhwIjoxNTkzODcwNDQ3LCJpYXQiOjE1OTM4NjY4NDd9.8i9rrD4W2uuOOIzGvJ8KZI0Jy8rmF0XnjdDZ6wcjATmr9UEd5UNRwKk-HZbMqYGAfWzKHRKdqQJsrbk-yHMZGQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"freeTest\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/web/boards/1/categories/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"web",
+						"boards",
+						"1",
+						"categories",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Article",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-AUTH-TOKEN",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2aXBlciIsInJvbGVzIjpbIlVTRVIiXSwiZXhwIjoxNTkzODc3MTc1LCJpYXQiOjE1OTM4NzM1NzV9.Jb2N_VLIwDWZNtQ0YI6GUz_ktTeG9v9wySE501YR2uvxL7GF4k3xL3rvAURTiWHIaI9BK7_Zx_XBytNMG_rMxw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"categoryId\": 1,\n\t\"title\": \"testtitle\",\n\t\"content\": \"testcontent\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/web/boards/1/articles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"web",
+						"boards",
+						"1",
+						"articles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Article",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/web/boards/1/articles/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"web",
+						"boards",
+						"1",
+						"articles",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Articles",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-AUTH-TOKEN",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2aXBlciIsInJvbGVzIjpbIlVTRVIiXSwiZXhwIjoxNTkzNDc5NDkxLCJpYXQiOjE1OTM0NzU4OTF9.jbfoBWUQbiA4dGwJKoshC56p51WA0AxphzIb727a4JFq5Kluo5sDP8sp5HB8cCFXHXdxbmuxv2Nr5G9ZDR5clQ",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/web/boards/1/articles?page=0&size=20",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"web",
+						"boards",
+						"1",
+						"articles"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "20"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Article",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-AUTH-TOKEN",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2aXBlciIsInJvbGVzIjpbIlVTRVIiXSwiZXhwIjoxNTkzODc3MTc1LCJpYXQiOjE1OTM4NzM1NzV9.Jb2N_VLIwDWZNtQ0YI6GUz_ktTeG9v9wySE501YR2uvxL7GF4k3xL3rvAURTiWHIaI9BK7_Zx_XBytNMG_rMxw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"categoryId\": 1,\n\t\"title\": \"testtitle\",\n\t\"content\": \"testcontent22222\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/web/boards/1/articles/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"web",
+						"boards",
+						"1",
+						"articles",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Article",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/web/boards/1/articles/search?page=0&size=20&keyword=test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"web",
+						"boards",
+						"1",
+						"articles",
+						"search"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "20"
+						},
+						{
+							"key": "keywordType",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "keyword",
+							"value": "test"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

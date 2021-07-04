@@ -30,3 +30,19 @@ A simple sample of Rest API by Spring Boot with Java 11.
   - domain: data access
     - entity: entities
     - repository: repositories
+  
+## Test APIs
+
+1. Run server.
+
+```shell
+./gradlew bootRun
+```
+
+2. Import [Postman](https://www.postman.com) data from below.
+
+```shell
+/miscs/SpringBootSample.postman_collection.json
+```
+
+3. Test with Postman.
