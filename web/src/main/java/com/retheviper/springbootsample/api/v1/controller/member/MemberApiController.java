@@ -115,7 +115,7 @@ public class MemberApiController {
         final MemberDto dto = new MemberDto();
         dto.setId(id);
         final MemberDto reference = this.service.getMember(dto);
-        if (IdentityVerificationUtil.isLoginedUser(reference.getName())) {
+        if (IdentityVerificationUtil.isLoginedUser(reference.getUserId())) {
             dto.setPassword(password);
             this.service.deleteMember(dto);
         } else {

@@ -101,7 +101,7 @@ public class MemberApiControllerTest {
 
     @Test
     @Order(5)
-    @WithMockUser(username = TEST_USER_NAME_2, roles = MemberRole.USER)
+    @WithMockUser(username = TEST_USER_ID, roles = MemberRole.USER)
     void deleteMemberTest() {
         assertAll(() -> {
             assertDoesNotThrow(() -> this.controller.deleteMember(MEMBER_ID, TEST_USER_PASSWORD_2));
