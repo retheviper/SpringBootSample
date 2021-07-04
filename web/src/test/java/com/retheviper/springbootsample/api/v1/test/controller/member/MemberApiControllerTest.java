@@ -70,7 +70,7 @@ public class MemberApiControllerTest {
     void createMemberTest() {
         final MemberForm form = new MemberForm();
         form.setUserId(TEST_USER_ID);
-        form.setName(≈);
+        form.setName(TEST_USER_NAME);
         form.setPassword(TEST_USER_PASSWORD);
         final MemberViewModel response = this.controller.createMember(form);
         assertAll(() -> {
