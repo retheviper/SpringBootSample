@@ -45,4 +45,4 @@ A simple sample of Rest API by Spring Boot with Java 11.
 /miscs/SpringBootSample.postman_collection.json
 ```
 
-3. Test with Postman.
+3. Test with Postman. (Some APIs needs JWT and it will be found at HTTP Response Header when successfully logged in)
