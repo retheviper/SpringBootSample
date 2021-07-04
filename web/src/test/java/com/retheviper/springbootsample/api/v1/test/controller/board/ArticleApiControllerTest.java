@@ -52,9 +52,9 @@ public class ArticleApiControllerTest {
         final Optional<ArticleViewModel> response = StreamSupport
                 .stream(this.controller.listArticle(1, 0, 20).spliterator(), false)
                 .map(EntityModel::getContent)
-                .findAny();
+                .findFirst();
         assertAll(() -> {
-            final ArticleViewModel view = assertDoesNotThrow(response::get);
+            final ArticleViewModel view = assertDoesNotThrow(() -> response.get());
             assertEquals(TEST_TITLE, view.getTitle());
             assertEquals(TEST_CONTENT, view.getContent());
             assertEquals(TEST_USER_ID, view.getCreatedBy());
