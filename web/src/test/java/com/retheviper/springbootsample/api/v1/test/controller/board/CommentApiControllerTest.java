@@ -16,6 +16,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 
 import java.util.Optional;
 
+import static com.retheviper.springbootsample.api.v1.test.controller.testbase.TestConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -32,12 +33,6 @@ public class CommentApiControllerTest {
     private static long ARTICLE_ID;
 
     private static long COMMENT_ID;
-
-    private static final String TEST_USER_ID = "TEST_USER_ID";
-
-    private static final String TEST_CONTENT = "TEST_CONTENT";
-
-    private static final String TEST_CONTENT_2 = "TEST_CONTENT_2";
 
     @Autowired
     private CommentApiController controller;
@@ -57,7 +52,7 @@ public class CommentApiControllerTest {
     void listCommentTest() {
         final Optional<CommentViewModel> response = this.controller.listComment(ARTICLE_ID).stream().findAny();
         assertAll(() -> {
-            final CommentViewModel view = assertDoesNotThrow(() -> response.get());
+            final CommentViewModel view = assertDoesNotThrow(response::get);
             assertEquals(TEST_CONTENT, view.getContent());
             assertEquals(TEST_USER_ID, view.getCreatedBy());
         });

@@ -44,7 +44,7 @@ public class MemberApiControllerTest {
         final Optional<MemberViewModel> response = this.controller.listMember().stream()
                 .filter(v -> v.getUserId().equals(TEST_USER_ID)).findAny();
         assertAll(() -> {
-            final MemberViewModel view = assertDoesNotThrow(() -> response.get());
+            final MemberViewModel view = assertDoesNotThrow(response::get);
             assertEquals(TEST_USER_ID, view.getUserId());
             assertEquals(TEST_USER_NAME, view.getName());
             assertTrue(view.getRoles().contains(MemberRole.USER));
@@ -53,7 +53,7 @@ public class MemberApiControllerTest {
 
     @Test
     @Order(2)
-    @WithMockUser(username = TEST_USER_NAME, roles = MemberRole.USER)
+    @WithMockUser(username = TEST_USER_ID, roles = MemberRole.USER)
     void getMemberTest() {
         final MemberViewModel response = this.controller.getMember(MEMBER_ID);
         assertAll(() -> {
@@ -70,7 +70,7 @@ public class MemberApiControllerTest {
     void createMemberTest() {
         final MemberForm form = new MemberForm();
         form.setUserId(TEST_USER_ID);
-        form.setName(≈);
+        form.setName(TEST_USER_NAME);
         form.setPassword(TEST_USER_PASSWORD);
         final MemberViewModel response = this.controller.createMember(form);
         assertAll(() -> {
@@ -84,7 +84,7 @@ public class MemberApiControllerTest {
 
     @Test
     @Order(4)
-    @WithMockUser(username = TEST_USER_NAME, roles = MemberRole.USER)
+    @WithMockUser(username = TEST_USER_ID, roles = MemberRole.USER)
     void updateMemberTest() {
         final MemberForm form = new MemberForm();
         form.setUserId(TEST_USER_ID);
@@ -101,7 +101,7 @@ public class MemberApiControllerTest {
 
     @Test
     @Order(5)
-    @WithMockUser(username = TEST_USER_NAME_2, roles = MemberRole.USER)
+    @WithMockUser(username = TEST_USER_ID, roles = MemberRole.USER)
     void deleteMemberTest() {
         assertAll(() -> {
             assertDoesNotThrow(() -> this.controller.deleteMember(MEMBER_ID, TEST_USER_PASSWORD_2));
