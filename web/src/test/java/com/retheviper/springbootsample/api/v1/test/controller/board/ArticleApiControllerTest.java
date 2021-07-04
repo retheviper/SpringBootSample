@@ -59,7 +59,7 @@ public class ArticleApiControllerTest {
     @WithMockUser(username = TEST_USER_ID, roles = MemberRole.USER)
     void listArticleTest() {
         final Optional<ArticleViewModel> response = StreamSupport.stream(this.controller.listArticle(1, 0, 20).spliterator(), false)
-                .map(EntityModel<ArticleViewModel>::getContent).findAny();
+                .map(EntityModel::getContent).findAny();
         assertAll(() -> {
             final ArticleViewModel view = assertDoesNotThrow(response::get);
             assertEquals(TEST_TITLE, view.getTitle());
