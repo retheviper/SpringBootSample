@@ -48,3 +48,9 @@ A simple sample of Rest API by Spring Boot with Java 11.
 3. Test with Postman. 
 
 Note: Some APIs need JWT on HTTP Request Header(`X-AUTH-TOKEN`) and it will be found at HTTP Response Header when successfully logged in.
+
+## Swagger
+
+```shell
+http://localhost:8080/api/v1/web/swagger-ui/index.html
+```

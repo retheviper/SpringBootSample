@@ -17,3 +17,7 @@ spring:
       ddl-auto: create-drop
   jwt:
     secret: $seventh@heaven$
+springfox:
+  documentation:
+    swagger-ui:
+      base-url: /api/v1/web
