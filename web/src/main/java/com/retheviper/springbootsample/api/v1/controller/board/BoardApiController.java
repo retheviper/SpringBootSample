@@ -92,7 +92,7 @@ public class BoardApiController {
     /**
      * Delete existing single board.
      *
-     * @param boardId boad ID
+     * @param boardId board ID
      */
     @DeleteMapping("/{boardId}")
     @ResponseStatus(HttpStatus.OK)

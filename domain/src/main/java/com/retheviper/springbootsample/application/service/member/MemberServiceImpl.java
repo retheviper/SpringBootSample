@@ -92,7 +92,7 @@ public class MemberServiceImpl implements MemberService {
         created.setAccountNonLocked(true);
         created.setCredentialsNonExpired(true);
         created.setEnabled(true);
-        created.setRoles(Collections.singletonList(MemberRole.USER));
+        created.setRoles(Collections.singletonList(MemberRole.ROLE_USER));
         return save(created);
     }
 

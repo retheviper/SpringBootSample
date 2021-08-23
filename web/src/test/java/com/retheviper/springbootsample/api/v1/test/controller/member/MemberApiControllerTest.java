@@ -46,8 +46,9 @@ public class MemberApiControllerTest {
         assertAll(() -> {
             final MemberViewModel view = assertDoesNotThrow(response::get);
             assertEquals(TEST_USER_ID, view.getUserId());
+            assertEquals(TEST_USER_ID, view.getUserId());
             assertEquals(TEST_USER_NAME, view.getName());
-            assertTrue(view.getRoles().contains(MemberRole.USER));
+            assertTrue(view.getRoles().contains(MemberRole.ROLE_USER));
         });
     }
 
@@ -60,7 +61,7 @@ public class MemberApiControllerTest {
             assertNotNull(response);
             assertEquals(TEST_USER_ID, response.getUserId());
             assertEquals(TEST_USER_NAME, response.getName());
-            assertEquals(MemberRole.USER, response.getRoles().get(0));
+            assertEquals(MemberRole.ROLE_USER, response.getRoles().get(0));
         });
     }
 
@@ -77,7 +78,7 @@ public class MemberApiControllerTest {
             assertNotNull(response);
             assertEquals(TEST_USER_ID, response.getUserId());
             assertEquals(TEST_USER_NAME, response.getName());
-            assertEquals(MemberRole.USER, response.getRoles().get(0));
+            assertEquals(MemberRole.ROLE_USER, response.getRoles().get(0));
         });
         MEMBER_ID = response.getId();
     }
@@ -95,7 +96,7 @@ public class MemberApiControllerTest {
         assertAll(() -> {
             assertNotNull(response);
             assertEquals(TEST_USER_NAME_2, response.getName());
-            assertEquals(MemberRole.USER, response.getRoles().get(0));
+            assertEquals(MemberRole.ROLE_USER, response.getRoles().get(0));
         });
     }
 

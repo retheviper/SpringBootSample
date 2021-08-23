@@ -97,7 +97,7 @@
 				"header": [
 					{
 						"key": "X-AUTH-TOKEN",
-						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2aXBlciIsInJvbGVzIjpbIlVTRVIiXSwiZXhwIjoxNjI0ODg1OTk1LCJpYXQiOjE2MjQ4ODIzOTV9.9VpQqYmMlsWG5LRPdwFv9kfdyWdqXTTl3db_7oEJ7bQlk--gjkgLpllHrwscYCS3BUP6tN6wlRdI9DSSSAapYg",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbIkFETUlOIl0sImV4cCI6MTYyOTczNTMzMCwiaWF0IjoxNjI5NzMxNzMwfQ.WZoVf1fe6fpr75fGPr4UjvuTzaLfHAUe3HQOj9aZanBq4mnqGPlLa-xH_Ri31huWuNlkdgZ-qY7urrcHc-dqNw",
 						"type": "text"
 					}
 				],
@@ -158,14 +158,42 @@
 			"response": []
 		},
 		{
-			"name": "Create  board",
+			"name": "List Members",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-AUTH-TOKEN",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbIkFETUlOIl0sImV4cCI6MTYyOTczNTMzMCwiaWF0IjoxNjI5NzMxNzMwfQ.WZoVf1fe6fpr75fGPr4UjvuTzaLfHAUe3HQOj9aZanBq4mnqGPlLa-xH_Ri31huWuNlkdgZ-qY7urrcHc-dqNw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/web/members",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"web",
+						"members"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create  Board",
 			"request": {
 				"method": "POST",
 				"header": [
 					{
 						"key": "X-AUTH-TOKEN",
 						"type": "text",
-						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2aXBlciIsInJvbGVzIjpbIlVTRVIiXSwiZXhwIjoxNjI0ODg2MDk5LCJpYXQiOjE2MjQ4ODI0OTl9.qqRsNjdq6pIs4Nl43XNNZXhcYydQsbKSXAxaJOE2YVufHqvVSLJdarlsQRksC4jumfKKowOqOZ1_T3vUtatudg"
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiZXhwIjoxNjI5NzM2NDU4LCJpYXQiOjE2Mjk3MzI4NTh9.UVS4iIH5dKdRMKbYiVcVY6zP9lyfMLJ86QmmADFVb_7tU_Q9ioZDEOjMAOYJmMh2kE8OhSFdPPr-fqVKfBxVwQ"
 					}
 				],
 				"body": {
@@ -177,6 +205,51 @@
 						}
 					}
 				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/web/boards",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"web",
+						"boards"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Board",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/web/boards/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"web",
+						"boards",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Boards",
+			"request": {
+				"method": "GET",
+				"header": [],
 				"url": {
 					"raw": "http://localhost:8080/api/v1/web/boards",
 					"protocol": "http",

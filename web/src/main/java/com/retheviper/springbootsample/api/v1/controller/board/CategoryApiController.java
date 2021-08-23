@@ -103,7 +103,7 @@ public class CategoryApiController {
     /**
      * Delete existing single category.
      *
-     * @param commentId category ID
+     * @param categoryId category ID
      */
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/{categoryId}")
