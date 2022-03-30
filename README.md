@@ -2,7 +2,7 @@
 
 ## TL;DR
 
-A simple sample of Rest API by Spring Boot with Java 11.
+A simple sample of Rest API by [Spring Boot](https://spring.io/projects/spring-boot) with Java 11.
 
 ## Includes
 
